@@ -21,8 +21,8 @@ Once uploaded into Project GPT, the skill auto-registers via the **Universal Ski
 1. Upload `optimization-profile.zip` directly into your Project GPT workspace or chat.  
 2. The USIF will:
    - Detect the `.zip` file,  
-   - Read `optimization-profile-config.json`,  
-   - Register `Optimization_Profile.md` as the primary controller.  
+   - Read `config.json`,
+   - Register `optimization_profile.md` as the primary controller.
 3. Confirmation message:  
    ```
    [✓] Registered skill: optimization-profile
@@ -44,8 +44,8 @@ launch optimization-profile
 ---
 
 ## Dependencies
-- **Controller**: `Optimization_Profile.md` (core logic)  
-- **Config**: `optimization-profile-config.json` (registration metadata)  
+- **Controller**: `optimization_profile.md` (core logic)
+- **Config**: `config.json` (registration metadata)
 - **Framework**: Requires Project GPT v1.0+ with FOIP & USIF enabled  
 
 ---

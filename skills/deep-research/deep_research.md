@@ -439,7 +439,7 @@ entry_point: deep_research.md
         ]
       },
       "Failure_Handling": {
-        "On_Structural_Error": "Set Protocol_State = 'FAILED_VALIDATION'; output: 'Controller document invalid — structural failure in Deep_Research_Extension.md.'",
+        "On_Structural_Error": "Set Protocol_State = 'FAILED_VALIDATION'; output: 'Controller document invalid — structural failure in deep_research.md.'",
         "On_Missing_Component": "Attempt to regenerate minimal stubs for missing Composition_Model or Tone_Control using cached templates; log 'Autopatched component.'",
         "On_Output_Violation": "Force a self-critique loop (Step 5.5) and retry once; if still invalid, flag report as 'PARTIAL_VERIFICATION' and notify controller."
       },
