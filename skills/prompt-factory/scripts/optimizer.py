@@ -15,12 +15,17 @@ import re
 import json
 import argparse
 from pathlib import Path
-from typing import Dict, List, Any, Tuple
+from typing import Dict, List, Any, Tuple, Set
 from datetime import datetime
 
 
 class PromptOptimizer:
     """Optimize prompts for token efficiency and clarity."""
+
+    SECTION_STOP_WORDS = {
+        'the', 'and', 'for', 'with', 'a', 'an', 'of', 'to', 'in',
+        'on', 'by', 'from', 'your', 'our', 'this', 'that'
+    }
 
     def __init__(self, aggressive: bool = False):
         self.aggressive = aggressive
@@ -303,26 +308,205 @@ class PromptOptimizer:
 
         return ''.join(optimized_sentences)
 
+    def _parse_sections(self, prompt: str) -> Tuple[str, List[Dict[str, str]]]:
+        """Split prompt into preamble and markdown sections."""
+        section_pattern = re.compile(r'(^#+\s+[^\n]+)', re.MULTILINE)
+        matches = list(section_pattern.finditer(prompt))
+
+        if not matches:
+            return prompt, []
+
+        preamble = prompt[:matches[0].start()]
+        sections: List[Dict[str, str]] = []
+
+        for idx, match in enumerate(matches):
+            end = matches[idx + 1].start() if idx + 1 < len(matches) else len(prompt)
+            sections.append({
+                'heading': prompt[match.start():match.end()],
+                'content': prompt[match.end():end]
+            })
+
+        return preamble, sections
+
+    def _rebuild_prompt(self, preamble: str, sections: List[Dict[str, str]]) -> str:
+        """Rebuild prompt text from preamble and sections."""
+        parts: List[str] = []
+        if preamble:
+            parts.append(preamble)
+
+        for section in sections:
+            parts.append(section['heading'])
+            parts.append(section['content'])
+
+        return ''.join(parts)
+
+    def _heading_signature(self, heading: str) -> Tuple[str, Set[str]]:
+        """Normalize heading text to detect similar sections."""
+        title = re.sub(r'^#+\s*', '', heading).strip()
+        title = re.sub(r'\(.*?\)', '', title)
+        normalized = re.sub(r'[^a-z0-9\s]', ' ', title.lower())
+        normalized = re.sub(r'\s+', ' ', normalized).strip()
+
+        if not normalized:
+            return '', set()
+
+        tokens: Set[str] = set()
+        for token in normalized.split():
+            if token in self.SECTION_STOP_WORDS:
+                continue
+            if token.endswith('ies') and len(token) > 3:
+                token = token[:-3] + 'y'
+            elif token.endswith('ing') and len(token) > 5:
+                token = token[:-3]
+            elif token.endswith('s') and len(token) > 3:
+                token = token[:-1]
+            tokens.add(token)
+
+        if not tokens:
+            tokens = {normalized}
+
+        return normalized, tokens
+
+    @staticmethod
+    def _normalize_block(block: str) -> str:
+        """Normalize a block of text for duplicate detection."""
+        stripped = block.strip()
+        if not stripped:
+            return ''
+        lines = [line.strip() for line in stripped.splitlines() if line.strip()]
+        return '\n'.join(lines).lower()
+
+    def _combine_section_contents(self, blocks: List[str]) -> str:
+        """Combine multiple content blocks for a single section."""
+        if not blocks:
+            return ''
+
+        combined = blocks[0]
+        for block in blocks[1:]:
+            normalized = self._normalize_block(block)
+            if not normalized:
+                continue
+            trimmed_existing = combined.rstrip('\n')
+            addition = block.strip('\n')
+            combined = trimmed_existing + '\n\n' + addition
+            if block.endswith('\n'):
+                combined += '\n'
+
+        return combined
+
     def _merge_sections(self, prompt: str) -> str:
         """Merge similar or overlapping sections."""
-        # This is a placeholder - actual implementation would need more sophisticated
-        # section analysis
-        self.optimizations_applied.append("Analyzed sections for merging opportunities")
+        preamble, sections = self._parse_sections(prompt)
+        if not sections:
+            return prompt
+
+        merged_sections: List[Dict[str, Any]] = []
+        changed = False
+
+        for section in sections:
+            normalized, tokens = self._heading_signature(section['heading'])
+            is_example = 'example' in normalized
+
+            target_index = None
+            if not is_example:
+                for idx, existing in enumerate(merged_sections):
+                    overlap = tokens & existing['tokens']
+                    if (tokens and existing['tokens'] and (
+                        tokens == existing['tokens'] or
+                        tokens <= existing['tokens'] or
+                        existing['tokens'] <= tokens or
+                            len(overlap) >= 2
+                    )) or (normalized and normalized == existing['normalized']):
+                        target_index = idx
+                        break
+
+            if target_index is None:
+                merged_sections.append({
+                    'heading': section['heading'],
+                    'normalized': normalized,
+                    'tokens': tokens,
+                    'contents': [section['content']],
+                    'merged': []
+                })
+                continue
+
+            existing_section = merged_sections[target_index]
+            existing_section['tokens'] |= tokens
+            changed = True
+            normalized_new_block = self._normalize_block(section['content'])
+            existing_blocks = [self._normalize_block(block) for block in existing_section['contents']]
+
+            if normalized_new_block and normalized_new_block not in existing_blocks:
+                existing_section['contents'].append(section['content'])
+
+            existing_section['merged'].append(section['heading'])
+
+        if not changed:
+            return prompt
+
+        final_sections = []
+        for section in merged_sections:
+            combined_content = self._combine_section_contents(section['contents'])
+            final_sections.append({
+                'heading': section['heading'],
+                'content': combined_content
+            })
+
+        rebuilt = self._rebuild_prompt(preamble, final_sections)
+
+        if rebuilt != prompt:
+            merge_summaries = []
+            for section in merged_sections:
+                if section['merged']:
+                    duplicates = [re.sub(r'^#+\s*', '', h).strip() for h in section['merged']]
+                    base_heading = re.sub(r'^#+\s*', '', section['heading']).strip()
+                    merge_summaries.append(f"{base_heading} (merged: {', '.join(duplicates)})")
+
+            if merge_summaries:
+                self.optimizations_applied.append(
+                    "Merged sections: " + '; '.join(merge_summaries)
+                )
+
+            return rebuilt
+
         return prompt
 
     def _consolidate_examples(self, prompt: str) -> str:
         """Consolidate excessive examples."""
-        # Find all example sections
-        example_pattern = r'(##?\s*Example\s+\d+[^\#]*?)(?=##|$)'
-        examples = re.findall(example_pattern, prompt, re.IGNORECASE | re.DOTALL)
+        preamble, sections = self._parse_sections(prompt)
+        if not sections:
+            return prompt
 
-        if len(examples) > 3:
-            # Keep first 2 and last 1
-            kept_examples = examples[:2] + [examples[-1]]
+        example_indices = [
+            idx for idx, section in enumerate(sections)
+            if re.search(r'example', section['heading'], re.IGNORECASE)
+        ]
 
-            # Reconstruct prompt with consolidated examples
-            # This is simplified - actual implementation would be more careful
-            self.optimizations_applied.append(f"Consolidated examples from {len(examples)} to 3")
+        if len(example_indices) <= 3:
+            return prompt
+
+        keep_indices = set(example_indices[:2] + example_indices[-1:])
+        removed_titles: List[str] = []
+        filtered_sections: List[Dict[str, str]] = []
+
+        for idx, section in enumerate(sections):
+            if idx in example_indices and idx not in keep_indices:
+                title = re.sub(r'^#+\s*', '', section['heading']).strip()
+                removed_titles.append(title)
+                continue
+            filtered_sections.append(section)
+
+        rebuilt = self._rebuild_prompt(preamble, filtered_sections)
+
+        if rebuilt != prompt:
+            removed_display = ', '.join(removed_titles[:3])
+            if len(removed_titles) > 3:
+                removed_display += ', ...'
+            self.optimizations_applied.append(
+                f"Consolidated examples: kept {len(keep_indices)} of {len(example_indices)}"
+                + (f" (removed {removed_display})" if removed_display else '')
+            )
+            return rebuilt
 
         return prompt
 
