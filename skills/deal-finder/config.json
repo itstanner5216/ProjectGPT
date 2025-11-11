@@ -1,0 +1,28 @@
+{
+  "skill_name": "deal-finder",
+  "version": "1.0",
+  "description": "Autonomous module that aggregates and compares product deals across sources, optimized for use within Project GPT's modular intelligence environment.",
+  "entry_point": "DealFinder_Extension.md",
+  "dependencies": [],
+  "integration": {
+    "inherits_from": "Full-Output Intelligence Protocol",
+    "execution_scope": "Subordinate",
+    "tone_inheritance": true,
+    "auto_register": true,
+    "compatible_with": ["Universal Skill Integration Framework ≥1.0"]
+  },
+  "activation": {
+    "trigger_phrases": ["activate", "use", "run", "enable", "launch"],
+    "match_policy": "fuzzy"
+  },
+  "persistence": {
+    "cache_skill": true,
+    "memory_scope": "session-temporary",
+    "unload_on_exit": true
+  },
+  "log": {
+    "on_load": "Register deal-finder as active module.",
+    "on_exit": "Unregister skill."
+  },
+  "test_mode": false
+}
