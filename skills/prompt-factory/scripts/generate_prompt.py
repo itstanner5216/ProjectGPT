@@ -93,13 +93,13 @@ class PromptGenerator:
 
         defaults: Dict[str, Any] = {**front_matter}
         if domain:
-            defaults.setdefault('domain', domain)
+            defaults['domain'] = domain
         if output_type:
-            defaults.setdefault('output_type', output_type)
+            defaults['output_type'] = output_type
         if tone:
-            defaults.setdefault('tone', tone)
+            defaults['tone'] = tone
         if tech_stack:
-            defaults.setdefault('tech_stack', tech_stack)
+            defaults['tech_stack'] = tech_stack
 
         return {
             'role': role,
