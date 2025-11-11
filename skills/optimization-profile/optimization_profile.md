@@ -3,7 +3,7 @@ name: optimization-profile
 description: Session-temporary optimization controller for Project GPT that tunes reasoning depth, verbosity, and execution scope for subordinate skills.
 version: 1.0
 type: skill
-entry_point: Optimization_Profile.md
+entry_point: optimization_profile.md
 ---
 
 ## Core Behavioral Objectives
@@ -122,4 +122,4 @@ entry_point: Optimization_Profile.md
         return True
     ```
 
-End of Optimization_Profile.md
+End of optimization_profile.md

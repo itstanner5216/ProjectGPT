@@ -2,7 +2,7 @@
   "skill_name": "deal-finder",
   "version": "1.0",
   "description": "Autonomous module that aggregates and compares product deals across sources, optimized for use within Project GPT's modular intelligence environment.",
-  "entry_point": "DealFinder_Extension.md",
+  "entry_point": "deal_finder.md",
   "dependencies": [],
   "integration": {
     "inherits_from": "Full-Output Intelligence Protocol",

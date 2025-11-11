@@ -175,7 +175,7 @@ Silent failures for robustness:
 
 ## Configuration
 
-The skill uses these default settings (in `automation-graph-config.json`):
+The skill uses these default settings (in `config.json`):
 
 ```json
 {
@@ -188,11 +188,11 @@ The skill uses these default settings (in `automation-graph-config.json`):
 
 ### Custom Configuration
 
-To modify behavior, edit `automation-graph-config.json`:
+To modify behavior, edit `config.json`:
 
 **Change event log size**:
 ```python
-# In Automation_Graph.md, modify:
+# In automation_graph.md, modify:
 self.max_log_size = 1000  # Change to desired size
 ```
 

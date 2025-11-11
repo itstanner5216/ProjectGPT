@@ -3,7 +3,7 @@
   "skill_name": "deep-research-extension",
   "version": "5.9",
   "description": "Advanced multi-phase research protocol with triple-source verification and narrative synthesis for comprehensive analytical reports",
-  "entry_point": "deep-research-extension3.md",
+  "entry_point": "deep_research.md",
   "dependencies": [],
   "integration": {
     "inherits_from": "Full-Output Intelligence Protocol",

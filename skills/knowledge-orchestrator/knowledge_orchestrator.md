@@ -1,3 +1,11 @@
+---
+name: knowledge-orchestrator
+description: Coordinates hybrid data queries and merges external research into core reasoning processes.
+version: 1.0
+type: skill
+entry_point: knowledge_orchestrator.md
+---
+
 # Knowledge Orchestrator Skill
 
 ## Overview

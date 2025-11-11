@@ -3,7 +3,7 @@ name: deal-finder
 description: Intelligent real-time deal-aggregation and comparison extension that identifies, analyzes, and ranks online product offers by price, quality, and reliability.
 version: 1.0
 type: skill
-entry_point: DealFinder_Extension.md
+entry_point: deal_finder.md
 ---
 
 <?xml version="1.0" encoding="UTF-8"?>
