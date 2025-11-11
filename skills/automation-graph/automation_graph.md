@@ -3,7 +3,7 @@ name: automation-graph
 description: Dynamic automation bridge linking Event Hooks and Messaging Bus.
 version: 1.1
 type: skill
-entry_point: Automation_Graph.md
+entry_point: automation_graph.md
 ---
 
 # Automation Graph

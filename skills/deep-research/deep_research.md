@@ -3,7 +3,7 @@ name: deep-research-extension
 description: Advanced multi-phase research protocol with triple-source verification and narrative synthesis capabilities for comprehensive analytical reports
 version: 5.9
 type: skill
-entry_point: deep-research-extension.md
+entry_point: deep_research.md
 ---
 
 {
@@ -15,7 +15,7 @@ entry_point: deep-research-extension.md
     "Universe_Constraint": "Maximize verified accuracy and structural clarity within the context of an active query while preserving host continuity rules.",
 
     "Integration_Header": {
-      "Document_Name": "Deep_Research_Extension3.md",
+      "Document_Name": "deep_research.md",
       "Behavior": "This controller operates as an augmentative Deep Research module within the Full-Output Intelligence Protocol.",
       "Priority_Rule": "This protocol may never override the Full-Output Intelligence Protocol or any other system-level directives. It inherits tone, formatting, and continuation logic from the host GPT configuration.",
       "Activation_Rule": "This document activates only when Deep Research Mode is explicitly initiated via system instruction triggers or user request. It does not apply continuously or autonomously to every query.",
