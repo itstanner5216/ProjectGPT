@@ -56,12 +56,60 @@ class PromptGenerator:
         if preset_name not in preset_map:
             raise ValueError(f"Unknown preset: {preset_name}")
 
-        # Return default configuration for preset
-        # In production, this would load from actual template files
+        preset_file = preset_path / preset_map[preset_name]
+
+        if not preset_file.exists():
+            raise FileNotFoundError(f"Preset file not found: {preset_file}")
+
+        content = preset_file.read_text(encoding='utf-8')
+
+        # Extract front matter (--- delimited key: value pairs)
+        front_matter: Dict[str, str] = {}
+        body = content
+        if content.startswith('---'):
+            parts = content.split('---', 2)
+            if len(parts) >= 3:
+                front_block = parts[1]
+                body = parts[2]
+                for line in front_block.strip().splitlines():
+                    if ':' not in line:
+                        continue
+                    key, value = line.split(':', 1)
+                    front_matter[key.strip()] = value.strip()
+
+        def extract_markdown_value(label: str) -> Optional[str]:
+            pattern = rf"\*\*{re.escape(label)}:\*\*\s*([^\n]+)"
+            match = re.search(pattern, body)
+            if match:
+                return match.group(1).strip()
+            return None
+
+        # Map front matter and markdown fields to response values
+        role = front_matter.get('role') if front_matter.get('role') is not None else (extract_markdown_value('Role') or preset_name.replace('-', ' ').title())
+        domain = front_matter.get('domain') if front_matter.get('domain') is not None else extract_markdown_value('Domain')
+        output_type = front_matter.get('output_type') if front_matter.get('output_type') is not None else extract_markdown_value('Output Type')
+        tone = front_matter.get('tone') if front_matter.get('tone') is not None else extract_markdown_value('Tone')
+        tech_stack = front_matter.get('tech_stack') if front_matter.get('tech_stack') is not None else extract_markdown_value('Tech Stack')
+
+        defaults: Dict[str, Any] = {**front_matter}
+        if domain:
+            defaults['domain'] = domain
+        if output_type:
+            defaults['output_type'] = output_type
+        if tone:
+            defaults['tone'] = tone
+        if tech_stack:
+            defaults['tech_stack'] = tech_stack
+
         return {
-            'role': preset_name.replace('-', ' ').title(),
+            'role': role,
             'preset': preset_name,
-            'template': preset_map[preset_name]
+            'template': preset_map[preset_name],
+            'domain': domain,
+            'output_type': output_type,
+            'tone': tone,
+            'tech_stack': tech_stack,
+            'defaults': defaults,
         }
 
     def generate_xml_format(self, responses: Dict[str, Any]) -> str:
