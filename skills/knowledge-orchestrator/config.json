@@ -1,6 +1,7 @@
 {
   "skill_name": "knowledge-orchestrator",
   "version": "1.0",
+  "entry_point": "knowledge_orchestrator.md",
   "execution_scope": "Subordinate",
   "auto_register": true,
   "cache_skill": true,
