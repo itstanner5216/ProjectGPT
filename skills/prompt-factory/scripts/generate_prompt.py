@@ -85,11 +85,11 @@ class PromptGenerator:
             return None
 
         # Map front matter and markdown fields to response values
-        role = front_matter.get('role') or extract_markdown_value('Role') or preset_name.replace('-', ' ').title()
-        domain = front_matter.get('domain') or extract_markdown_value('Domain')
-        output_type = front_matter.get('output_type') or extract_markdown_value('Output Type')
-        tone = front_matter.get('tone') or extract_markdown_value('Tone')
-        tech_stack = front_matter.get('tech_stack') or extract_markdown_value('Tech Stack')
+        role = front_matter.get('role') if front_matter.get('role') is not None else (extract_markdown_value('Role') or preset_name.replace('-', ' ').title())
+        domain = front_matter.get('domain') if front_matter.get('domain') is not None else extract_markdown_value('Domain')
+        output_type = front_matter.get('output_type') if front_matter.get('output_type') is not None else extract_markdown_value('Output Type')
+        tone = front_matter.get('tone') if front_matter.get('tone') is not None else extract_markdown_value('Tone')
+        tech_stack = front_matter.get('tech_stack') if front_matter.get('tech_stack') is not None else extract_markdown_value('Tech Stack')
 
         defaults: Dict[str, Any] = {**front_matter}
         if domain:
