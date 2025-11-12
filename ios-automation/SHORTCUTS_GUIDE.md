@@ -155,9 +155,9 @@ Modify the shortcut to hardcode a preset:
 3. Pass that text to the script
 
 ### Tip 2: Save Results Automatically
-Add actions after "Show Result":
+Add after the script runs:
 - "Save File" → iCloud Drive
-- "Add to Note" → Notes app  
+- "Add to Note" → the Notes app  
 - "Send Message" → Messages
 
 ### Tip 3: Create a Prompt Library

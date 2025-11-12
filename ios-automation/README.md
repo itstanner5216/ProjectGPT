@@ -4,6 +4,8 @@ This directory contains scripts for running ProjectGPT Prompt Factory from iOS d
 
 ## Overview
 
+**Note**: This is a demo/client-side implementation that provides basic prompt templates and demonstrates the workflow. For full Python backend integration, see the Limitations section below.
+
 The iOS automation allows you to:
 - Generate prompts directly from your iPhone or iPad
 - Use Scriptable app for interactive prompt generation

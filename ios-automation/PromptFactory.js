@@ -97,8 +97,19 @@ async function main() {
 
 async function generatePrompt(query) {
   // This is a placeholder implementation
-  // In production, this would make an API call to your Python backend
-  // or use a-shell/Pythonista to run the Python script
+  // In production, this would make an API call to your Python backend:
+  // 
+  // Expected API endpoint: POST /api/generate-prompt
+  // Request body: { "query": "string", "preset": "string", "format": "xml|claude|chatgpt" }
+  // Response: { "success": boolean, "prompt": "string", "error": "string" }
+  //
+  // Example integration:
+  // const req = new Request("https://your-api.com/generate-prompt");
+  // req.method = "POST";
+  // req.headers = { "Content-Type": "application/json" };
+  // req.body = JSON.stringify({ query: query });
+  // const response = await req.loadJSON();
+  // return response.prompt;
   
   console.log("Generating prompt for: " + query);
   
