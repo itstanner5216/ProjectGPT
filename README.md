@@ -84,10 +84,20 @@ Skills operate in subordinate mode, inheriting the parent GPT's context and tone
 - Provide clear configuration options
 - Document all events and message formats
 
+## iOS Automation
+
+**New!** Run ProjectGPT Prompt Factory from your iPhone or iPad:
+- Use the Scriptable app for interactive prompt generation
+- Integrate with iOS Shortcuts for automation workflows
+- Generate prompts on-the-go without a computer
+
+See [ios-automation/README.md](ios-automation/README.md) for setup instructions.
+
 ## Support
 
 For issues or questions:
 - Check individual skill READMEs for specific documentation
+- For iOS automation issues, see [ios-automation/README.md](ios-automation/README.md)
 - Verify skill placement in `project_files` directory
 - Review GPT logs for loading and execution details
 - Ensure compatibility with Project GPT Universal Skill Integration Framework ≥1.0
