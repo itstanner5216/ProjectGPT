@@ -41,13 +41,6 @@ An intelligent deal-aggregation and comparison module that searches across multi
 3. **Deploy to GPT**: Place the zip files into your GPT project's `project_files` directory.
 4. **Configure Instructions**: Include the appropriate project GPT instructions block to enable skill loading and automation.
 
-### For iOS Integration (Scriptable & Shortcuts)
-
-1. **Install Scriptable**: Download the [Scriptable app](https://apps.apple.com/us/app/scriptable/id1405459188) from the App Store.
-2. **Add ProjectGPT Script**: Copy the `ProjectGPT.js` file into Scriptable.
-3. **Set Up Shortcuts**: Create iOS Shortcuts that call the ProjectGPT script.
-4. **See Full Documentation**: Refer to [SCRIPTABLE_SETUP.md](SCRIPTABLE_SETUP.md) for detailed setup instructions.
-
 ### Automatic Registration
 Skills auto-register upon GPT session startup. No manual activation is required - the system detects and loads available skills automatically.
 
@@ -58,23 +51,6 @@ Once deployed, skills become part of the GPT's capability set:
 - **Automatic Activation**: Skills trigger based on context and user queries.
 - **Inter-Skill Communication**: Events flow between skills to create automated workflows.
 - **Background Operation**: Most automation occurs silently, with results presented seamlessly.
-
-### iOS Usage (Scriptable & Shortcuts)
-
-The ProjectGPT script can be used on iOS in two ways:
-
-1. **Directly in Scriptable App**:
-   - Open Scriptable
-   - Run ProjectGPT script
-   - Enter your query when prompted
-   - View the formatted response
-
-2. **From iOS Shortcuts**:
-   - Create a Shortcut with "Run Script" action
-   - Pass your query as a parameter
-   - Get results back in Shortcuts for further automation
-
-See [SCRIPTABLE_SETUP.md](SCRIPTABLE_SETUP.md) for complete iOS integration guide.
 
 ### Example Workflow
 A user query about finding product deals might automatically trigger:
