@@ -5,97 +5,100 @@
 // 1. In Scriptable app: Run directly, will prompt for input
 // 2. In Shortcuts: Use "Run Script" action and pass query as parameter
 
-// Check if running from Shortcuts or Scriptable app
-const isRunningInShortcuts = args.shortcutParameter !== undefined;
+// Main execution function
+async function main() {
+  // Check if running from Shortcuts or Scriptable app
+  const isRunningInShortcuts = args.shortcutParameter !== undefined;
 
-let query;
+  let query;
 
-if (isRunningInShortcuts) {
-  // Running from Shortcuts - get parameter from Shortcuts
-  query = args.shortcutParameter;
-  
-  if (typeof query !== 'string') {
-    // Handle cases where parameter might be an object or other type
-    query = String(query);
-  }
-  
-  if (!query || query.trim() === '') {
-    // If empty parameter from Shortcuts, show error
-    Script.setShortcutOutput("Error: No query provided from Shortcuts");
-    Script.complete();
-    throw new Error("Empty query parameter from Shortcuts");
-  }
-} else {
-  // Running in Scriptable app - prompt user for input
-  const alert = new Alert();
-  alert.title = "ProjectGPT Query";
-  alert.message = "Enter your query for ProjectGPT:";
-  alert.addTextField("Your query", "");
-  alert.addAction("Submit");
-  alert.addCancelAction("Cancel");
-  
-  const alertResponse = await alert.presentAlert();
-  
-  if (alertResponse === -1) {
-    // User cancelled
-    console.log("User cancelled the query");
-    Script.complete();
-    return;
-  }
-  
-  query = alert.textFieldValue(0);
-  
-  if (!query || query.trim() === '') {
-    // Show error if no query entered
-    const errorAlert = new Alert();
-    errorAlert.title = "Error";
-    errorAlert.message = "Please enter a query";
-    errorAlert.addAction("OK");
-    await errorAlert.presentAlert();
-    Script.complete();
-    return;
-  }
-}
-
-// Process the query
-try {
-  console.log(`Processing query: ${query}`);
-  
-  // Here you would integrate with the ProjectGPT backend
-  // For now, we'll create a formatted response
-  const response = await processQuery(query);
-  
   if (isRunningInShortcuts) {
-    // Return result to Shortcuts
-    Script.setShortcutOutput(response);
+    // Running from Shortcuts - get parameter from Shortcuts
+    query = args.shortcutParameter;
+    
+    if (typeof query !== 'string') {
+      // Handle cases where parameter might be an object or other type
+      query = String(query);
+    }
+    
+    if (!query || query.trim() === '') {
+      // If empty parameter from Shortcuts, show error
+      Script.setShortcutOutput("Error: No query provided from Shortcuts");
+      Script.complete();
+      return;
+    }
   } else {
-    // Display result in Scriptable app
-    const resultAlert = new Alert();
-    resultAlert.title = "ProjectGPT Response";
-    resultAlert.message = response;
-    resultAlert.addAction("OK");
-    await resultAlert.presentAlert();
+    // Running in Scriptable app - prompt user for input
+    const alert = new Alert();
+    alert.title = "ProjectGPT Query";
+    alert.message = "Enter your query for ProjectGPT:";
+    alert.addTextField("Your query", "");
+    alert.addAction("Submit");
+    alert.addCancelAction("Cancel");
+    
+    const alertResponse = await alert.presentAlert();
+    
+    if (alertResponse === -1) {
+      // User cancelled
+      console.log("User cancelled the query");
+      Script.complete();
+      return;
+    }
+    
+    query = alert.textFieldValue(0);
+    
+    if (!query || query.trim() === '') {
+      // Show error if no query entered
+      const errorAlert = new Alert();
+      errorAlert.title = "Error";
+      errorAlert.message = "Please enter a query";
+      errorAlert.addAction("OK");
+      await errorAlert.presentAlert();
+      Script.complete();
+      return;
+    }
   }
-  
-  console.log("Query processed successfully");
-  Script.complete();
-  
-} catch (error) {
-  console.error("Error processing query:", error);
-  
-  const errorMessage = `Error: ${error.message}`;
-  
-  if (isRunningInShortcuts) {
-    Script.setShortcutOutput(errorMessage);
-  } else {
-    const errorAlert = new Alert();
-    errorAlert.title = "Error";
-    errorAlert.message = errorMessage;
-    errorAlert.addAction("OK");
-    await errorAlert.presentAlert();
+
+  // Process the query
+  try {
+    console.log(`Processing query: ${query}`);
+    
+    // Here you would integrate with the ProjectGPT backend
+    // For now, we'll create a formatted response
+    const response = await processQuery(query);
+    
+    if (isRunningInShortcuts) {
+      // Return result to Shortcuts
+      Script.setShortcutOutput(response);
+    } else {
+      // Display result in Scriptable app
+      const resultAlert = new Alert();
+      resultAlert.title = "ProjectGPT Response";
+      resultAlert.message = response;
+      resultAlert.addAction("OK");
+      await resultAlert.presentAlert();
+    }
+    
+    console.log("Query processed successfully");
+    Script.complete();
+    
+  } catch (error) {
+    console.error("Error processing query:", error);
+    
+    const errorMessage = `Error: ${error.message}`;
+    
+    if (isRunningInShortcuts) {
+      Script.setShortcutOutput(errorMessage);
+    } else {
+      const errorAlert = new Alert();
+      errorAlert.title = "Error";
+      errorAlert.message = errorMessage;
+      errorAlert.addAction("OK");
+      await errorAlert.presentAlert();
+    }
+    
+    Script.complete();
   }
-  
-  Script.complete();
 }
 
 // Function to process the query
@@ -124,3 +127,7 @@ To integrate with the full ProjectGPT backend:
 Status: Demo Mode
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━`;
 }
+
+// Run the main function
+await main();
+
