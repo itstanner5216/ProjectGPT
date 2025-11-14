@@ -147,13 +147,13 @@ jobs:
             
             | Legacy Identifier | Canonical Name |
             |:------------------|:---------------|
-            | `AetherCore.Orchestrator` | `AetherCore.Orchestrator` |
-            | `AetherCore.EventMesh` | `AetherCore.EventMesh` |
-            | `AetherCore.OptiGraph` | `AetherCore.OptiGraph` |
-            | `AetherCore.DeepForge` | `AetherCore.DeepForge` |
-            | `AetherCore.MarketSweep` | `AetherCore.MarketSweep` |
-            | `AetherCore.PromptFoundry` | `AetherCore.PromptFoundry` |
-            | `AetherCore.EventMesh` | `AetherCore.EventMesh` |
+            | `knowledge-orchestrator` | `AetherCore.Orchestrator` |
+            | `automation-graph` | `AetherCore.EventMesh` |
+            | `optimization-profile` | `AetherCore.OptiGraph` |
+            | `deep-research-extension` | `AetherCore.DeepForge` |
+            | `dealfinder-extension` | `AetherCore.MarketSweep` |
+            | `prompt-factory` | `AetherCore.PromptFoundry` |
+            | `skill-messaging-bus` | `AetherCore.EventMesh` |
             
             ### Changes Included
             
