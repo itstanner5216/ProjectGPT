@@ -1,9 +1,9 @@
 ---
-name: deep-research-extension
+name: "AetherCore.DeepForge"
 description: Advanced multi-phase research protocol with triple-source verification and narrative synthesis capabilities for comprehensive analytical reports
 version: 5.9
-type: skill
-entry_point: deep_research.md
+type: callable
+entry_point: deepforge-entry.js
 ---
 
 {

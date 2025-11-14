@@ -1,9 +1,9 @@
 ---
-name: deal-finder
+name: "AetherCore.MarketSweep"
 description: Intelligent real-time deal-aggregation and comparison extension that identifies, analyzes, and ranks online product offers by price, quality, and reliability.
 version: 1.0
-type: skill
-entry_point: deal_finder.md
+type: callable
+entry_point: marketsweep-entry.js
 ---
 
 <?xml version="1.0" encoding="UTF-8"?>

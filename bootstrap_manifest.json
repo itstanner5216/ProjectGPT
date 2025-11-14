@@ -39,35 +39,39 @@
 ]
 },
 
-```
+
 "phase_2_callable_skills": {
   "description": "Callable functional skills that load after infrastructure",
   "required": false,
   "parallel_load": false,
   "skills": [
     {
-      "name": "deep-research",
+      "name": "AetherCore.DeepForge",
+      "entry_point": "AetherCore/DeepForge/deepforge-entry.js",
       "priority": 3,
       "callable": true,
       "load_timeout_ms": 5000,
       "on_failure": "continue_with_warning"
     },
     {
-      "name": "deal-finder",
+      "name": "AetherCore.MarketSweep",
+      "entry_point": "AetherCore/MarketSweep/marketsweep-entry.js",
       "priority": 4,
       "callable": true,
       "load_timeout_ms": 5000,
       "on_failure": "continue_with_warning"
     },
     {
-      "name": "gemini-hybrid",
+      "name": "AetherCore.GeminiBridge",
+      "entry_point": "AetherCore/GeminiBridge/geminibridge-entry.js",
       "priority": 5,
       "callable": true,
       "load_timeout_ms": 5000,
       "on_failure": "continue_with_warning"
     },
     {
-      "name": "prompt-factory",
+      "name": "AetherCore.PromptFoundry",
+      "entry_point": "AetherCore/PromptFoundry/promptfoundry-entry.js",
       "priority": 6,
       "callable": true,
       "load_timeout_ms": 5000,
@@ -75,7 +79,7 @@
     }
   ]
 }
-```
+
 
 },
 

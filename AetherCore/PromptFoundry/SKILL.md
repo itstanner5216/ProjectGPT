@@ -1,7 +1,9 @@
 ---
-name: prompt-factory
+name: "AetherCore.PromptFoundry"
 description: World-class prompt powerhouse that generates production-ready mega-prompts for any role, industry, and task through intelligent 7-question flow, 69 comprehensive presets across 15 professional domains (technical, business, creative, legal, finance, HR, design, customer, executive, manufacturing, R&D, regulatory, specialized-technical, research, creative-media), multiple output formats (XML/Claude/ChatGPT/Gemini), quality validation gates, and contextual best practices from OpenAI/Anthropic/Google. Supports both core and advanced modes with testing scenarios and prompt variations.
-entry_point: SKILL.md
+version: 1.0
+type: callable
+entry_point: promptfoundry-entry.js
 ---
 
 # Prompt Factory - World-Class Prompt Powerhouse

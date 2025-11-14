@@ -1,5 +1,5 @@
 {
-  "skill_name": "automation-graph",
+  "skill_name": "AetherCore.EventMesh",
   "version": "1.1",
   "description": "Builds and maintains the internal event routing graph connecting all registered skills, handling message passing, dependency resolution, and task sequencing under orchestrator supervision.",
   "compatible_with": [
@@ -8,10 +8,10 @@
   "execution_scope": "Subordinate",
   "callable": false,
   "auto_register": true,
-  "entry_point": "automation_graph.md",
+  "entry_point": "eventmesh-entry.js",
   "dependencies": [
-    "knowledge-orchestrator",
-    "optimization-profile",
+    "AetherCore.Orchestrator",
+    "AetherCore.OptiGraph",
     "skill-messaging-bus"
   ],
   "integration": {
