@@ -1,5 +1,5 @@
 {
-  "skill_name": "deal-finder",
+  "skill_name": "AetherCore.MarketSweep",
   "version": "1.0",
   "description": "Autonomous integration module that aggregates and compares product deals across multiple sources, optimized for use within ProjectGPT\u2019s modular intelligence framework.",
   "compatible_with": [
@@ -8,11 +8,11 @@
   "execution_scope": "Subordinate",
   "callable": true,
   "auto_register": true,
-  "entry_point": "deal_finder.md",
+  "entry_point": "marketsweep-entry.js",
   "dependencies": [
-    "knowledge-orchestrator",
-    "automation-graph",
-    "optimization-profile",
+    "AetherCore.Orchestrator",
+    "AetherCore.EventMesh",
+    "AetherCore.OptiGraph",
     "skill-messaging-bus"
   ],
   "integration": {

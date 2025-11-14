@@ -1,16 +1,16 @@
 ---
-name: automation-graph
-description: Dynamic automation bridge linking Event Hooks and Messaging Bus.
+name: "AetherCore.EventMesh"
+description: Dynamic event routing infrastructure connecting all registered skills, handling message passing and task sequencing.
 version: 1.1
-type: skill
-entry_point: automation_graph.md
+type: infrastructure
+entry_point: eventmesh-entry.js
 ---
 
-# Automation Graph
+# AetherCore.EventMesh
 
 ## Core Purpose
 
-The Automation Graph skill creates a dynamic, self-updating event routing system that bridges Event Hooks and the Skill Messaging Bus. It maintains an internal directed graph where:
+AetherCore.EventMesh creates a dynamic, self-updating event routing system that bridges Event Hooks and the Skill Messaging Bus. It maintains an internal directed graph where:
 
 - **Nodes** represent loaded skills  
 - **Edges** represent message routes and dependencies  

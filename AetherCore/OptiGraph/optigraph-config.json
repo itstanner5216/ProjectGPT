@@ -1,5 +1,5 @@
 {
-  "skill_name": "optimization-profile",
+  "skill_name": "AetherCore.OptiGraph",
   "version": "2.1",
   "description": "Dynamic performance tuner and calibration module for all ProjectGPT skills.",
   "compatible_with": [
@@ -8,7 +8,7 @@
   "scope": "Subordinate",
   "callable": false,
   "auto_register": true,
-  "entry_point": "optimization_profile.md",
+  "entry_point": "optigraph-entry.js",
   "dependencies": [],
   "integration": {
     "register_triggers": false,
@@ -62,10 +62,10 @@
       "autosave_best_config": true
     },
     "adaptive_weights": {
-      "deep-research": 1.0,
-      "prompt-factory": 0.9,
-      "deal-finder": 0.95,
-      "automation-graph": 0.8
+      "AetherCore.DeepForge": 1.0,
+      "AetherCore.PromptFoundry": 0.9,
+      "AetherCore.MarketSweep": 0.95,
+      "AetherCore.EventMesh": 0.8
     }
   },
   "telemetry": {
@@ -81,9 +81,9 @@
   "cross_skill_learning": {
     "enabled": true,
     "share_between": [
-      "deep-research",
-      "prompt-factory",
-      "deal-finder"
+      "AetherCore.DeepForge",
+      "AetherCore.PromptFoundry",
+      "AetherCore.MarketSweep"
     ],
     "method": "weighted_average_of_best_runs"
   },

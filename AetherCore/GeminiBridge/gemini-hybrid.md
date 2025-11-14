@@ -1,8 +1,16 @@
-# Gemini-Hybrid v2.1 — Universal External Intelligence Engine
+---
+name: "AetherCore.GeminiBridge"
+description: Universal external intelligence coprocessor integrating Gemini Flash and Gemini 2.5 Pro into AetherCore for escalation, fallback, and hybrid reasoning.
+version: 2.1
+type: external-intelligence
+entry_point: geminibridge-entry.js
+---
+
+# AetherCore.GeminiBridge v2.1 — Universal External Intelligence Engine
 
 **Version:** 2.1  
 **Classification:** External Intelligence Coprocessor  
-**Author:** Tanner / ProjectGPT Ecosystem  
+**Author:** Tanner / AetherCore Ecosystem  
 **Compatibility:** Universal Skill Integration Framework ≥1.0
 
 -----

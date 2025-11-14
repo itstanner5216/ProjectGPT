@@ -1,5 +1,5 @@
 {
-  "skill_name": "deep-research-extension",
+  "skill_name": "AetherCore.DeepForge",
   "version": "5.9",
   "description": "Advanced multi-phase research protocol with triple-source verification and narrative synthesis for comprehensive analytical reports.",
   "compatible_with": [
@@ -8,7 +8,7 @@
   "scope": "Subordinate",
   "callable": true,
   "auto_register": true,
-  "entry_point": "deep_research.md",
+  "entry_point": "deepforge-entry.js",
   "dependencies": [],
   "integration": {
     "inherits_from": "Full-Output Intelligence Protocol",

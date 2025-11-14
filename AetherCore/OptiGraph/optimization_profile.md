@@ -1,9 +1,9 @@
 ---
-name: optimization-profile
-description: Session-temporary optimization controller for Project GPT that tunes reasoning depth, verbosity, and execution scope for subordinate skills.
-version: 1.0
-type: skill
-entry_point: optimization_profile.md
+name: "AetherCore.OptiGraph"
+description: Dynamic performance tuner and calibration module for all AetherCore skills, optimizing runtime analytics and resource allocation.
+version: 2.1
+type: performance
+entry_point: optigraph-entry.js
 ---
 
 ## Core Behavioral Objectives

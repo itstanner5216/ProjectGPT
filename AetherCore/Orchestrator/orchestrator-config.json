@@ -1,5 +1,5 @@
 {
-  "skill_name": "knowledge-orchestrator",
+  "skill_name": "AetherCore.Orchestrator",
   "version": "2.0",
   "description": "Root executive controller governing skill taxonomy, activation sequences, and multi-skill orchestration",
   "compatible_with": [
@@ -8,7 +8,7 @@
   "execution_scope": "RootController",
   "callable": false,
   "auto_register": true,
-  "entry_point": "knowledge_orchestrator.md",
+  "entry_point": "orchestrator-entry.js",
   "dependencies": [],
   "integration": {
     "auto_register": true,
@@ -58,20 +58,20 @@
   },
   "skill_taxonomy": {
     "non_callable_core": [
-      "knowledge-orchestrator",
-      "automation-graph",
-      "optimization-profile"
+      "AetherCore.Orchestrator",
+      "AetherCore.EventMesh",
+      "AetherCore.OptiGraph"
     ],
     "callable_skills": [
-      "deep-research",
-      "prompt-factory",
-      "deal-finder"
+      "AetherCore.DeepForge",
+      "AetherCore.PromptFoundry",
+      "AetherCore.MarketSweep"
     ]
   },
   "activation_sequence": [
-    "knowledge-orchestrator",
-    "automation-graph",
-    "optimization-profile"
+    "AetherCore.Orchestrator",
+    "AetherCore.EventMesh",
+    "AetherCore.OptiGraph"
   ],
   "breaking_changes": {
     "from_v1": "Execution scope changed from 'Subordinate' to 'RootController'"
@@ -80,17 +80,17 @@
   "intent_routing": {
     "auto_skill_detection": true,
     "routing_model": "intent+keyword",
-    "fallback_skill": "deep-research",
+    "fallback_skill": "AetherCore.DeepForge",
     "intent_map": {
-      "research": "deep-research",
-      "lookup": "deep-research",
-      "analyze": "deep-research",
-      "prompt": "prompt-factory",
-      "template": "prompt-factory",
-      "generate": "prompt-factory",
-      "deal": "deal-finder",
-      "price": "deal-finder",
-      "product": "deal-finder"
+      "research": "AetherCore.DeepForge",
+      "lookup": "AetherCore.DeepForge",
+      "analyze": "AetherCore.DeepForge",
+      "prompt": "AetherCore.PromptFoundry",
+      "template": "AetherCore.PromptFoundry",
+      "generate": "AetherCore.PromptFoundry",
+      "deal": "AetherCore.MarketSweep",
+      "price": "AetherCore.MarketSweep",
+      "product": "AetherCore.MarketSweep"
     }
   }
 }

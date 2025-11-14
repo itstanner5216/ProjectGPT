@@ -1,18 +1,18 @@
 ---
-name: knowledge-orchestrator
-description: Root executive controller that governs skill taxonomy, activation sequences, and multi-skill orchestration across the ProjectGPT ecosystem.
+name: "AetherCore.Orchestrator"
+description: Root executive controller that governs skill taxonomy, activation sequences, and multi-skill orchestration across the AetherCore ecosystem.
 version: 2.0
 type: core-controller
-entry_point: knowledge_orchestrator.md
+entry_point: orchestrator-entry.js
 execution_priority: 0
 auto_initialize: true
 ---
 
-# Knowledge Orchestrator v2.0 — Root Executive Controller
+# AetherCore.Orchestrator v2.0 — Root Executive Controller
 
 ## System Architecture Role
 
-**The Knowledge Orchestrator is the ROOT CONTROLLER of ProjectGPT.**
+**AetherCore.Orchestrator is the ROOT CONTROLLER of the AetherCore system.**
 
 This skill initializes FIRST in every session, before any other module executes. It defines the complete skill ecosystem, establishes execution sequences, manages dependencies, and orchestrates multi-skill workflows.
 
@@ -30,13 +30,13 @@ These modules are **infrastructure components** that activate automatically in a
 
 | Module | Role | Activation Rule |
 |:---|:---|:---|
-| **Knowledge Orchestrator** | Root Controller | Always first; initializes environment |
-| **Automation Graph** | Event Routing Infrastructure | Auto-instantiated by Orchestrator |
-| **Optimization Profile** | Policy & Parameter Tuning | Auto-activated after Graph |
+| **AetherCore.Orchestrator** | Root Controller | Always first; initializes environment |
+| **AetherCore.EventMesh** | Event Routing Infrastructure | Auto-instantiated by Orchestrator |
+| **AetherCore.OptiGraph** | Policy & Parameter Tuning | Auto-activated after Graph |
 
 **Execution Order (Mandatory)**:
 ```
-Knowledge Orchestrator → Automation Graph → Optimization Profile
+AetherCore.Orchestrator → AetherCore.EventMesh → AetherCore.OptiGraph
 ```
 
 This sequence MUST complete before any callable skill executes.
@@ -47,9 +47,9 @@ These are **functional capabilities** invoked on demand based on user intent:
 
 | Skill | Purpose | Invocation Type |
 |:---|:---|:---|
-| **Deep Research Extension** | Multi-phase research with source validation | Explicit or contextual |
-| **Prompt Factory** | Role-specific mega-prompt generation | Explicit or contextual |
-| **Deal Finder** | Product comparison with validated purchase links | Explicit or contextual |
+| **AetherCore.DeepForge** | Multi-phase research with source validation | Explicit or contextual |
+| **AetherCore.PromptFoundry** | Role-specific mega-prompt generation | Explicit or contextual |
+| **AetherCore.MarketSweep** | Product comparison with validated purchase links | Explicit or contextual |
 
 **Invocation Rules**:
 - Single skill reference → Execute that skill in isolation
