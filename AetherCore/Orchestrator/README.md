@@ -140,14 +140,14 @@ Behavior: Direct execution with optimization parameters applied.
 ```
 "Research AI trends and create a technical prompt about them"
 → Deep Research executes first
-→ Results feed into Prompt Factory
+→ Results feed into AetherCore.PromptFoundry
 → Single unified output delivered
 ```
 
 ```
 "Find the best deals on laptops and build an evaluation framework"
 → Deal Finder gathers product data
-→ Prompt Factory creates evaluation template using that data
+→ AetherCore.PromptFoundry creates evaluation template using that data
 → Coherent merged response
 ```
 
@@ -246,9 +246,9 @@ orchestrator_initialized → infrastructure_ready → system_ready
 **User Query**: "Research quantum computing advances"
 
 **Orchestrator Action**:
-1. Detect single skill reference: `deep-research`
+1. Detect single skill reference: `AetherCore.DeepForge`
 2. Apply optimization parameters
-3. Execute Deep Research directly
+3. Execute AetherCore.DeepForge directly
 4. Return results
 
 **Output**: Standard research report (identical to v1.0 behavior)

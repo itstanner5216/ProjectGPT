@@ -294,7 +294,7 @@ All operations are logged internally for debugging but never displayed during no
 When three skills are loaded:
 
 ```
-AetherCore.OptiGraph → deep-research → deal-finder
+AetherCore.OptiGraph → AetherCore.DeepForge → AetherCore.MarketSweep
 ```
 
 The graph automatically creates and routes events silently between them.
@@ -307,7 +307,7 @@ The graph automatically creates and routes events silently between them.
 
 ## Gemini-Hybrid Escalation Routing
 
-The Automation Graph supports routing of escalation events to the gemini-hybrid skill when subordinate
+AetherCore.EventMesh supports routing of escalation events to the AetherCore.GeminiBridge skill when subordinate
 skills or the Orchestrator emit escalation signals.
 
 ### Escalation Event Types

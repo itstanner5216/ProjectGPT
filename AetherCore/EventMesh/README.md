@@ -30,14 +30,14 @@ The automation graph uses a directed graph model:
 └──────────┬──────────┘
            │ (triggers)
            ▼
-    ┌──────────────┐
-    │ deep-research│
-    └──────┬───────┘
+    ┌──────────────────┐
+    │AetherCore.DeepForge│
+    └──────┬─────────────┘
            │ (sends results)
            ▼
-      ┌────────────┐
-      │ deal-finder│
-      └────────────┘
+      ┌───────────────────────┐
+      │AetherCore.MarketSweep │
+      └───────────────────────┘
 ```
 
 ### Components

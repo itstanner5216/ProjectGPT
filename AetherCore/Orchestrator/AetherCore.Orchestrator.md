@@ -215,7 +215,7 @@ def orchestrate_multi_skill_workflow(skill_names, user_query):
 ```
 
 **Key Capabilities**:
-- **Dependency Detection**: "Research X then build prompt" → auto-sequences Deep Research before Prompt Factory
+- **Dependency Detection**: "Research X then build prompt" → auto-sequences AetherCore.DeepForge before AetherCore.PromptFoundry
 - **Context Propagation**: Research results automatically feed into dependent skills
 - **Unified Output**: One coherent response with consistent tone/structure
 - **Transparent Orchestration**: User sees final result, not intermediate steps
@@ -645,7 +645,7 @@ evidence back into the internal reasoning chain.
 
 ### Escalation Signals
 
-The Orchestrator should consider escalation to gemini-hybrid when any of the following patterns appear
+The Orchestrator should consider escalation to AetherCore.GeminiBridge when any of the following patterns appear
 in the execution context:
 
 - **Repeated Code Failures**: The same or closely related code errors occur on two or more attempts for
@@ -694,7 +694,7 @@ This helper is conceptual; implementations may vary, but the semantics should re
 
 ### Invocation Pattern
 
-When escalation is warranted, the Orchestrator constructs a payload for gemini-hybrid:
+When escalation is warranted, the Orchestrator constructs a payload for AetherCore.GeminiBridge:
 
 ```python
 def build_gemini_payload(execution_context):
@@ -711,7 +711,7 @@ def build_gemini_payload(execution_context):
     }
 ```
 
-The Orchestrator then invokes the gemini-hybrid skill (through the registry) and records the result:
+The Orchestrator then invokes the AetherCore.GeminiBridge skill (through the registry) and records the result:
 
 ```python
 def invoke_gemini_hybrid(execution_context):
@@ -727,7 +727,7 @@ def invoke_gemini_hybrid(execution_context):
 
 ### Fusion Logic
 
-After gemini-hybrid returns, the Orchestrator fuses external evidence with internal reasoning:
+After AetherCore.GeminiBridge returns, the Orchestrator fuses external evidence with internal reasoning:
 
 ```python
 def fuse_with_gemini(internal_result, gemini_result):
@@ -755,7 +755,7 @@ uncertainty tagging still apply. Gemini-Hybrid is an evidence source, not a repl
 
 ### Integration Into Failure Handling
 
-Within the existing failure handling path, the Orchestrator may incorporate gemini-hybrid:
+Within the existing failure handling path, the Orchestrator may incorporate AetherCore.GeminiBridge:
 
 ```python
 def handle_skill_failure(skill_name, error, execution_context):
