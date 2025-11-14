@@ -17,7 +17,7 @@ entry_point: geminibridge-entry.js
 
 ## Overview
 
-Gemini-Hybrid is a **universal external intelligence module** designed for the ProjectGPT FOIP ecosystem. Unlike traditional skills that target a single domain (research, code, product sourcing), Gemini-Hybrid operates as a **domain-general external cognition engine**.
+AetherCore.GeminiBridge is a **universal external intelligence module** designed for the ProjectGPT FOIP ecosystem. Unlike traditional skills that target a single domain (research, code, product sourcing), Gemini-Hybrid operates as a **domain-general external cognition engine**.
 
 Its purpose is to give ProjectGPT the ability to:
 
@@ -26,13 +26,13 @@ Its purpose is to give ProjectGPT the ability to:
 - Merge external insight with FOIP reasoning
 - Produce a superior fused solution
 
-Gemini-Hybrid is not a research skill, not a code skill, not a product skill. It is a **cross-domain external coprocessor** used intelligently by ProjectGPT.
+AetherCore.GeminiBridge is not a research skill, not a code skill, not a product skill. It is a **cross-domain external coprocessor** used intelligently by ProjectGPT.
 
 -----
 
-## What Is Gemini-Hybrid? (Purpose & Vision)
+## What Is AetherCore.GeminiBridge? (Purpose & Vision)
 
-Gemini-Hybrid is built to solve the systemic gaps of purely internal LLM workflows:
+AetherCore.GeminiBridge is built to solve the systemic gaps of purely internal LLM workflows:
 
 - Internal reasoning dead-ends
 - Repeating code bugs the model can’t resolve
@@ -56,7 +56,7 @@ Traditional skills handle narrow, predefined tasks. But ProjectGPT requires a su
 - When to escalate a repeated error
 - How to maintain FOIP standards during fusion
 
-Gemini-Hybrid provides the missing layer: **adaptive delegation intelligence**.
+AetherCore.GeminiBridge provides the missing layer: **adaptive delegation intelligence**.
 
 -----
 
@@ -94,13 +94,13 @@ Gemini-Hybrid provides the missing layer: **adaptive delegation intelligence**.
 - Fill in missing inference steps
 - Supply independent reasoning chains
 
-**Gemini-Hybrid is not tied to a domain** — it is a general-purpose augmentation engine.
+**AetherCore.GeminiBridge is not tied to a domain** — it is a general-purpose augmentation engine.
 
 -----
 
 ## Architecture Overview
 
-Gemini-Hybrid integrates into ProjectGPT via a four-layer architecture:
+AetherCore.GeminiBridge integrates into ProjectGPT via a four-layer architecture:
 
 ### 5.1 FOIP Delegation Ladder (FDL)
 
@@ -165,7 +165,7 @@ If FOIP and Gemini disagree:
 
 **Triggered when:**
 
-- Deep Research cannot validate a claim
+- AetherCore.DeepForge cannot validate a claim
 - Evidence conflict occurs
 - Reasoning enters a loop
 - Sources appear insufficient
@@ -223,7 +223,7 @@ If FOIP encounters a logic dead-end, repeated failures, or insufficient data, Ge
 - Task type ∈ {code, research, logic} AND internal attempts failed
 - High-stakes reasoning required
 
-The **Optimization Profile and Knowledge Orchestrator** automatically select the appropriate model based on task context and failure patterns.
+The **AetherCore.OptiGraph and AetherCore.Orchestrator** automatically select the appropriate model based on task context and failure patterns.
 
 -----
 
@@ -311,8 +311,8 @@ Defines how Gemini’s results are:
 ## File Structure
 
 ```
-skills/gemini-hybrid/
-├── config.json              # Skill configuration
+AetherCore/GeminiBridge/
+├── geminibridge-config.json # Skill configuration
 ├── gemini-hybrid.md         # Skill definition & rules
 ├── gemini_client.js         # API client implementation
 └── README.md                # This file
@@ -349,8 +349,8 @@ FOIP + USIF will:
 You will see logs indicating:
 
 ```
-✓ Registered skill: gemini-hybrid
-Gemini-Hybrid delegation engine active
+✓ Registered skill: AetherCore.GeminiBridge
+AetherCore.GeminiBridge delegation engine active
 ```
 
 -----
@@ -363,7 +363,7 @@ Gemini-Hybrid delegation engine active
 User: "It still errors..."
 
 → FOIP detects repeated failure
-→ Gemini-Hybrid is invoked
+→ AetherCore.GeminiBridge is invoked
 → Gemini proposes a patch
 → FOIP critiques and merges
 → Final output delivered
@@ -382,8 +382,8 @@ User: "It still errors..."
 ### Example 3 — Hybrid Research
 
 ```
-→ Deep Research stuck on contradictory evidence
-→ Gemini-Hybrid runs external pass
+→ AetherCore.DeepForge stuck on contradictory evidence
+→ AetherCore.GeminiBridge runs external pass
 → FOIP resolves contradictions
 → Unified long-form answer produced
 ```
@@ -438,7 +438,7 @@ User: "Gemini, rewrite this function."
 **Solution:** Check prompt formatting and API quota limits
 
 **Issue:** “Skill not registered”  
-**Solution:** Verify file structure matches expected layout in `/skills/gemini-hybrid/`
+**Solution:** Verify file structure matches expected layout in `AetherCore/GeminiBridge/`
 
 -----
 
@@ -470,11 +470,11 @@ This module must comply with:
 
 **Tested With:**
 
-- Knowledge Orchestrator v2.0
-- Automation Graph v1.1
-- Optimization Profile v1.0
-- Deep Research Extension v1.0
-- Deal Finder v1.0
+- AetherCore.Orchestrator v2.0
+- AetherCore.EventMesh v1.1
+- AetherCore.OptiGraph v1.0
+- AetherCore.DeepForge v1.0
+- AetherCore.MarketSweep v1.0
 
 **Known Issues:** None
 

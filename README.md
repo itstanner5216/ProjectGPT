@@ -17,14 +17,14 @@ This repository contains a collection of autonomous skills that extend GPT capab
 
 The repository currently includes the following skills:
 
-### Automation Graph
+### AetherCore.EventMesh
 Creates a dynamic automation bridge that links event hooks and the skill messaging bus into a self-updating event graph. Enables silent, background orchestration of skill interactions.
 
 - **Automatic Routing**: Events flow automatically between dependent skills.
 - **Dynamic Updates**: Graph rebuilds when skills are loaded or unloaded.
 - **Performance Optimized**: Uses cached routing tables for efficient event distribution.
 
-### Deal Finder
+### AetherCore.MarketSweep
 An intelligent deal-aggregation and comparison module that searches across multiple marketplaces to find optimal product deals.
 
 - **Exhaustive Coverage**: Searches 15+ US-based platforms including Amazon, Newegg, eBay, and more.
@@ -36,8 +36,8 @@ An intelligent deal-aggregation and comparison module that searches across multi
 
 ### For GPT Project Integration
 
-1. **Select Skills**: Choose the skills you want to integrate from the `skills/` directory.
-2. **Package Files**: Zip each selected skill folder (e.g., `AetherCore.EventMesh.zip`, `deal-finder.zip`).
+1. **Select Skills**: Choose the skills you want to integrate from the `AetherCore/` directory.
+2. **Package Files**: Zip each selected skill folder (e.g., `AetherCore.EventMesh.zip`, `AetherCore.MarketSweep.zip`).
 3. **Deploy to GPT**: Place the zip files into your GPT project's `project_files` directory.
 4. **Configure Instructions**: Include the appropriate project GPT instructions block to enable skill loading and automation.
 
@@ -73,7 +73,7 @@ Skills operate in subordinate mode, inheriting the parent GPT's context and tone
 ## Development
 
 ### Adding New Skills
-1. Create a new folder in `skills/`
+1. Create a new folder in `AetherCore/`
 2. Implement the skill following the universal framework spec
 3. Include comprehensive documentation and configuration
 4. Test integration with existing skills

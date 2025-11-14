@@ -226,18 +226,18 @@ def orchestrate_multi_skill_workflow(skill_names, user_query):
 
 **Orchestrator Analysis**:
 ```python
-detected_skills = ["deep-research", "AetherCore.PromptFoundry"]
+detected_skills = ["AetherCore.DeepForge", "AetherCore.PromptFoundry"]
 dependencies = {
-    "AetherCore.PromptFoundry": ["deep-research"]  # Prompt Factory depends on research results
+    "AetherCore.PromptFoundry": ["AetherCore.DeepForge"]  # AetherCore.PromptFoundry depends on research results
 }
-execution_order = ["deep-research", "AetherCore.PromptFoundry"]
+execution_order = ["AetherCore.DeepForge", "AetherCore.PromptFoundry"]
 ```
 
 **Execution Flow**:
-1. **Deep Research** executes first, gathering validated laptop data
+1. **AetherCore.DeepForge** executes first, gathering validated laptop data
 2. Research output is stored in shared context
-3. **Prompt Factory** receives research data as input context
-4. Prompt Factory generates evaluation template using research insights
+3. **AetherCore.PromptFoundry** receives research data as input context
+4. AetherCore.PromptFoundry generates evaluation template using research insights
 5. Both outputs merge into single coherent deliverable
 
 **Final Output Structure**:
@@ -245,12 +245,12 @@ execution_order = ["deep-research", "AetherCore.PromptFoundry"]
 # Laptop Evaluation Framework
 
 ## Research Summary
-[Deep Research findings: models, specs, validated sources]
+[AetherCore.DeepForge findings: models, specs, validated sources]
 
 ## Evaluation Prompt Template
-[Prompt Factory output: mega-prompt using research data]
+[AetherCore.PromptFoundry output: mega-prompt using research data]
 
-[Citations from Deep Research]
+[Citations from AetherCore.DeepForge]
 ```
 
 ---
@@ -266,14 +266,14 @@ def analyze_skill_dependencies(skill_names):
     """
     dependency_rules = {
         "AetherCore.PromptFoundry": {
-            "can_use_output_from": ["deep-research", "deal-finder"],
+            "can_use_output_from": ["AetherCore.DeepForge", "AetherCore.MarketSweep"],
             "pattern_indicators": ["based on", "using", "from"]
         },
-        "deal-finder": {
-            "can_use_output_from": ["deep-research"],
+        "AetherCore.MarketSweep": {
+            "can_use_output_from": ["AetherCore.DeepForge"],
             "pattern_indicators": ["compare", "find", "search"]
         },
-        "deep-research": {
+        "AetherCore.DeepForge": {
             "can_use_output_from": [],
             "pattern_indicators": ["research", "analyze", "investigate"]
         }
@@ -650,9 +650,9 @@ in the execution context:
 
 - **Repeated Code Failures**: The same or closely related code errors occur on two or more attempts for
   a single user task (e.g., repeated tracebacks, consistent type or attribute errors).
-- **Deep Research Stalling**: Deep Research completes its normal phases but cannot move from evidence
+- **Deep Research Stalling**: AetherCore.DeepForge completes its normal phases but cannot move from evidence
   collection to synthesis, or explicitly flags that no new high-quality sources are being found.
-- **Insufficient Product Coverage**: Deal Finder returns fewer than five viable product options after
+- **Insufficient Product Coverage**: AetherCore.MarketSweep returns fewer than five viable product options after
   at least one retry, or can only find products with missing or inadequate metadata.
 - **Contradictory Outputs**: Internal reasoning detects contradictions between earlier and current
   answers, or between multiple subordinate skill outputs.
@@ -715,7 +715,7 @@ The Orchestrator then invokes the gemini-hybrid skill (through the registry) and
 
 ```python
 def invoke_gemini_hybrid(execution_context):
-    gemini_skill = registry.get("gemini-hybrid")
+    gemini_skill = registry.get("AetherCore.GeminiBridge")
     if not gemini_skill:
         return None
 

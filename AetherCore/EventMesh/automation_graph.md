@@ -321,14 +321,14 @@ Escalation events are expressed as:
 
 These event types are emitted by:
 
-- **Knowledge Orchestrator** — after centralized failure analysis.
-- **Deep Research** — when research reaches a dead-end or cannot progress beyond collection.
-- **Deal Finder** — when fewer than five viable products are found or product metadata is insufficient.
+- **AetherCore.Orchestrator** — after centralized failure analysis.
+- **AetherCore.DeepForge** — when research reaches a dead-end or cannot progress beyond collection.
+- **AetherCore.MarketSweep** — when fewer than five viable products are found or product metadata is insufficient.
 - **Other Skills** — when repeated or unresolved errors are detected.
 
 ### Routing Strategy
 
-Automation Graph routes escalation events preferentially to `gemini-hybrid` if it is active and advertises
+AetherCore.EventMesh routes escalation events preferentially to `AetherCore.GeminiBridge` if it is active and advertises
 handlers for the relevant escalation type:
 
 ```python
@@ -336,10 +336,10 @@ def route_escalation_event(source_skill, escalation_type, payload):
     event_type = f"escalation_{escalation_type}"
     targets = []
 
-    if "gemini-hybrid" in _state.graph and _state.graph["gemini-hybrid"]["active"]:
-        handlers = _state.graph["gemini-hybrid"].get("message_handlers", {})
+    if "AetherCore.GeminiBridge" in _state.graph and _state.graph["AetherCore.GeminiBridge"]["active"]:
+        handlers = _state.graph["AetherCore.GeminiBridge"].get("message_handlers", {})
         if event_type in handlers or handlers.get("escalation", False):
-            targets = ["gemini-hybrid"]
+            targets = ["AetherCore.GeminiBridge"]
 
     if not targets:
         targets = _get_routing_targets(source_skill, event_type)

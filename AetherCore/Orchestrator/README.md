@@ -1,4 +1,4 @@
-# Knowledge Orchestrator v2.0 — Root Executive Controller
+# AetherCore.Orchestrator v2.0 — Root Executive Controller
 
 **Version:** 2.0  
 **Type:** Core System Controller  
@@ -9,7 +9,7 @@
 
 ## Overview
 
-The Knowledge Orchestrator v2.0 represents a **fundamental architectural upgrade** from a subordinate data coordinator to the **root executive controller** of the entire ProjectGPT ecosystem.
+AetherCore.Orchestrator v2.0 represents a **fundamental architectural upgrade** from a subordinate data coordinator to the **root executive controller** of the entire ProjectGPT ecosystem.
 
 ### What Changed from v1.0
 
@@ -35,20 +35,20 @@ The Knowledge Orchestrator v2.0 represents a **fundamental architectural upgrade
 ### 2. Skill Taxonomy Management
 
 **Non-Callable Core Modules** (Infrastructure):
-- Knowledge Orchestrator
-- Automation Graph
-- Optimization Profile
+- AetherCore.Orchestrator
+- AetherCore.EventMesh
+- AetherCore.OptiGraph
 
 **Callable Skills** (Functional):
-- Deep Research Extension
-- Prompt Factory
-- Deal Finder
+- AetherCore.DeepForge
+- AetherCore.PromptFoundry
+- AetherCore.MarketSweep
 
 ### 3. Automatic Activation Sequence
 
 Every session executes this sequence **silently and automatically**:
 ```
-Knowledge Orchestrator → Automation Graph → Optimization Profile
+AetherCore.Orchestrator → AetherCore.EventMesh → AetherCore.OptiGraph
 ```
 
 This infrastructure MUST be ready before any callable skill runs.
@@ -57,7 +57,7 @@ This infrastructure MUST be ready before any callable skill runs.
 
 **Single-Skill Mode** (Preserved Simplicity):
 ```
-User: "Use Deep Research to analyze quantum computing"
+User: "Use AetherCore.DeepForge to analyze quantum computing"
 → Direct execution, no orchestration overhead
 ```
 
@@ -65,7 +65,7 @@ User: "Use Deep Research to analyze quantum computing"
 ```
 User: "Research the best laptops and create a prompt to evaluate them"
 → Automatic dependency analysis
-→ Sequential execution: Deep Research → Prompt Factory
+→ Sequential execution: AetherCore.DeepForge → AetherCore.PromptFoundry
 → Context propagation between skills
 → Unified coherent output
 ```
@@ -173,13 +173,13 @@ You can still invoke hybrid data queries directly:
 ### Relationship to Other Skills
 
 **Manages**:
-- Automation Graph (creates and configures)
-- Optimization Profile (activates and calibrates)
+- AetherCore.EventMesh (creates and configures)
+- AetherCore.OptiGraph (activates and calibrates)
 
 **Orchestrates**:
-- Deep Research Extension
-- Prompt Factory
-- Deal Finder
+- AetherCore.DeepForge
+- AetherCore.PromptFoundry
+- AetherCore.MarketSweep
 - (All callable skills)
 
 **Interfaces With**:
@@ -260,10 +260,10 @@ orchestrator_initialized → infrastructure_ready → system_ready
 **User Query**: "Research the top programming languages and build a prompt to teach them"
 
 **Orchestrator Action**:
-1. Detect skills: `deep-research`, `AetherCore.PromptFoundry`
-2. Analyze dependency: Prompt Factory can use research output
-3. Execute Deep Research first
-4. Feed research results into Prompt Factory context
+1. Detect skills: `AetherCore.DeepForge`, `AetherCore.PromptFoundry`
+2. Analyze dependency: AetherCore.PromptFoundry can use research output
+3. Execute AetherCore.DeepForge first
+4. Feed research results into AetherCore.PromptFoundry context
 5. Merge outputs intelligently
 
 **Output**:
@@ -271,10 +271,10 @@ orchestrator_initialized → infrastructure_ready → system_ready
 # Programming Language Teaching Framework
 
 ## Current Landscape Analysis
-[Deep Research: Top languages, trends, adoption data, citations]
+[AetherCore.DeepForge: Top languages, trends, adoption data, citations]
 
 ## Teaching Prompt Template
-[Prompt Factory: Mega-prompt built using research insights]
+[AetherCore.PromptFoundry: Mega-prompt built using research insights]
 
 ---
 Based on research from [sources]...
@@ -287,12 +287,12 @@ Based on research from [sources]...
 **User Query**: "Find the best gaming laptops, research their specs, then create a comparison prompt"
 
 **Orchestrator Action**:
-1. Detect skills: `deal-finder`, `deep-research`, `AetherCore.PromptFoundry`
+1. Detect skills: `AetherCore.MarketSweep`, `AetherCore.DeepForge`, `AetherCore.PromptFoundry`
 2. Build dependency graph:
-   - Deal Finder (independent) → products identified
-   - Deep Research (uses Deal Finder output) → specs validated
-   - Prompt Factory (uses both) → comparison framework
-3. Execute in order: Deal Finder → Deep Research → Prompt Factory
+   - AetherCore.MarketSweep (independent) → products identified
+   - AetherCore.DeepForge (uses AetherCore.MarketSweep output) → specs validated
+   - AetherCore.PromptFoundry (uses both) → comparison framework
+3. Execute in order: AetherCore.MarketSweep → AetherCore.DeepForge → AetherCore.PromptFoundry
 4. Propagate context through chain
 5. Deliver unified comparison framework
 
@@ -306,11 +306,11 @@ Based on research from [sources]...
 
 If a skill fails during orchestration:
 
-**Scenario**: Deep Research times out, Prompt Factory depends on it
+**Scenario**: AetherCore.DeepForge times out, AetherCore.PromptFoundry depends on it
 
 **Orchestrator Response**:
-1. Log Deep Research failure
-2. Execute Prompt Factory in standalone mode (no research context)
+1. Log AetherCore.DeepForge failure
+2. Execute AetherCore.PromptFoundry in standalone mode (no research context)
 3. Annotate output: "Note: Generated without research data due to timeout"
 4. Deliver partial results
 
@@ -334,17 +334,17 @@ If a skill fails during orchestration:
 Enable debug output to see initialization:
 
 ```
-🧠 Knowledge Orchestrator v2.0 — Root Controller Active
+🧠 AetherCore.Orchestrator v2.0 — Root Controller Active
    ├─ Core Modules: 3
    ├─ Callable Skills: 3
    └─ Taxonomy Classification: Complete
 
-📊 Automation Graph — Initialized
+📊 AetherCore.EventMesh — Initialized
    ├─ Nodes: 6
    ├─ Routing Table: 18 entries
    └─ Dependency Chains: Cached
 
-⚙️  Optimization Profile — Calibration Complete
+⚙️  AetherCore.OptiGraph — Calibration Complete
    ├─ Reasoning Depth: MAX
    ├─ Structural Density: HIGH
    └─ Continuity Cache: ENABLED
@@ -457,11 +457,11 @@ AetherCore.Orchestrator/
 ✅ **Production Ready** (v2.0)
 
 **Tested With**:
-- Deep Research Extension v1.0
-- Prompt Factory v1.0
-- Deal Finder v1.0
-- Automation Graph v1.1
-- Optimization Profile v1.0
+- AetherCore.DeepForge v1.0
+- AetherCore.PromptFoundry v1.0
+- AetherCore.MarketSweep v1.0
+- AetherCore.EventMesh v1.1
+- AetherCore.OptiGraph v1.0
 
 **Known Issues**: None
 

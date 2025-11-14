@@ -1,8 +1,8 @@
-# Automation Graph Skill
+# AetherCore.EventMesh Skill
 
 ## Overview
 
-The **Automation Graph** skill creates a dynamic automation bridge that links Event Hooks and the Skill Messaging Bus into a silent, self-updating event graph. This enables all active skills to trigger each other automatically without manual intervention or user-visible operations.
+The **AetherCore.EventMesh** skill creates a dynamic automation bridge that links Event Hooks and the Skill Messaging Bus into a silent, self-updating event graph. This enables all active skills to trigger each other automatically without manual intervention or user-visible operations.
 
 ## What's New in v1.1
 
@@ -88,19 +88,19 @@ ls project_files/AetherCore.EventMesh.zip
 
 When you have these skills loaded:
 - `AetherCore.OptiGraph`
-- `deep-research`
-- `deal-finder`
+- `AetherCore.DeepForge`
+- `AetherCore.MarketSweep`
 
-The Automation Graph automatically creates this flow:
+AetherCore.EventMesh automatically creates this flow:
 
 ```
 User Request
     ↓
 AetherCore.OptiGraph (analyzes requirements)
     ↓ (event: research_needed)
-deep-research (conducts research)
+AetherCore.DeepForge (conducts research)
     ↓ (event: results_ready)
-deal-finder (finds relevant deals)
+AetherCore.MarketSweep (finds relevant deals)
     ↓
 Final Output to User
 ```
@@ -114,7 +114,7 @@ content-planner → style-analyzer → markdown-formatter → quality-checker
 ```
 
 When `content-planner` emits a `draft_complete` event:
-1. Automation Graph checks routing table
+1. AetherCore.EventMesh checks routing table
 2. Identifies `style-analyzer` as subscriber
 3. Routes event with payload via Messaging Bus
 4. Process continues through pipeline automatically
@@ -136,7 +136,7 @@ When `system-monitor` broadcasts an `alert` event:
 
 ## Silent Operation
 
-The Automation Graph operates **completely silently**:
+AetherCore.EventMesh operates **completely silently**:
 
 ✓ No console output  
 ✓ No status messages  
@@ -251,7 +251,6 @@ print(_state.event_log[-100:])
 
 This skill requires:
 - `AetherCore.OptiGraph` (for configuration inheritance)
-- `AetherCore.EventMesh` (for event routing)
 
 Both dependencies are standard Project GPT components.
 
