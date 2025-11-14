@@ -28,7 +28,7 @@ entry_point: optigraph-entry.js
 | :--- | :--- | :--- |
 | ReasoningDepth | MAX | Explore all plausible branches. |
 | EvidenceDiversification | HIGH | Prioritize multi-source balance. |
-| VerificationMode | ACTIVE | Apply Deep Research validation stack. |
+| VerificationMode | ACTIVE | Apply AetherCore.DeepForge validation stack. |
 | ConfidenceScaling | ADAPTIVE | Re-weight claims by citation reliability. |
 | SummaryLayer | ENABLED | Add executive-level synthesis at end. |
 
@@ -159,7 +159,7 @@ def select_gemini_model(task_profile):
 
 ### External Evidence Weighting
 
-External evidence from gemini-hybrid should be treated as:
+External evidence from AetherCore.GeminiBridge should be treated as:
 
 - A **reinforcing signal** when it agrees with internal reasoning.
 - A **conflict trigger** when it disagrees strongly, prompting the Orchestrator to:

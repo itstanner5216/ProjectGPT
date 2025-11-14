@@ -1,4 +1,4 @@
-# DealFinder Skill Package
+# AetherCore.MarketSweep Skill Package
 
 **Version:** 1.0  
 **Type:** Autonomous Research & Comparison Module  
@@ -8,7 +8,7 @@
 
 ## 🎯 Overview
 
-**DealFinder** is an intelligent, real-time deal-aggregation and comparison extension designed to autonomously identify, analyze, and rank online product offers by price, quality, and reliability. This skill operates as a subordinate module within Project GPT's modular intelligence ecosystem, automatically activating when users mention product purchase intent.
+**AetherCore.MarketSweep** is an intelligent, real-time deal-aggregation and comparison extension designed to autonomously identify, analyze, and rank online product offers by price, quality, and reliability. This skill operates as a subordinate module within Project GPT's modular intelligence ecosystem, automatically activating when users mention product purchase intent.
 
 ### Key Features
 
@@ -25,7 +25,7 @@
 
 ### Automatic Registration (Recommended)
 
-1. Download `deal-finder.zip`
+1. Download `AetherCore.MarketSweep.zip`
 2. Extract the archive to your Project GPT `/project_files/skills/` directory
 3. The skill will auto-register on next system initialization
 4. Verify registration in skill inventory: `list active skills`
@@ -36,8 +36,8 @@ If auto-registration fails:
 
 ```bash
 cd /project_files/skills/
-unzip deal-finder.zip -d deal-finder/
-register_skill --path deal-finder/deal-finder-config.json
+unzip AetherCore.MarketSweep.zip -d AetherCore.MarketSweep/
+register_skill --path AetherCore.MarketSweep/marketsweep-config.json
 ```
 
 ---
@@ -57,9 +57,9 @@ The skill activates automatically when you mention products or purchase intent. 
 
 #### Explicit Activation
 ```
-"Activate deal-finder and search for..."
-"Use deal-finder: find me..."
-"Run deal-finder on [product]"
+"Activate AetherCore.MarketSweep and search for..."
+"Use AetherCore.MarketSweep: find me..."
+"Run AetherCore.MarketSweep on [product]"
 ```
 
 ### Query Syntax
@@ -83,7 +83,7 @@ Find mechanical keyboards with:
 
 ### Configuration Parameters
 
-DealFinder extracts these parameters automatically from your query:
+AetherCore.MarketSweep extracts these parameters automatically from your query:
 
 | Parameter | Description | Example |
 |-----------|-------------|---------|
@@ -98,7 +98,7 @@ DealFinder extracts these parameters automatically from your query:
 
 ## 📊 Output Format
 
-DealFinder delivers structured results optimized for immediate purchasing decisions:
+AetherCore.MarketSweep delivers structured results optimized for immediate purchasing decisions:
 
 ### 1. Top 5 Rankings
 Displays the cheapest listings meeting ALL specifications, sorted by total cost.
@@ -211,7 +211,7 @@ Specify in your query:
 
 ## 🛠️ Dependencies
 
-**None.** DealFinder is self-contained and requires no companion skills.
+**None.** AetherCore.MarketSweep is self-contained and requires no companion skills.
 
 ### Recommended Companions
 - `price-tracker`: Monitor price history over time
@@ -224,7 +224,7 @@ Specify in your query:
 
 ### Issue: Fewer than 5 results returned
 **Cause**: Strict specification requirements limiting available options  
-**Solution**: DealFinder prioritizes compliance over quantity. Consider relaxing specs or checking "next-best alternatives" in research summary.
+**Solution**: AetherCore.MarketSweep prioritizes compliance over quantity. Consider relaxing specs or checking "next-best alternatives" in research summary.
 
 ### Issue: Link becomes inactive
 **Action**: Automatically removed and replaced with next-best option  
@@ -242,7 +242,7 @@ Specify in your query:
 
 ## 📋 Success Criteria
 
-A successful DealFinder session achieves:
+A successful AetherCore.MarketSweep session achieves:
 
 ✅ 5 cheapest compliant listings identified (if available)  
 ✅ 100% specification compliance  
@@ -275,7 +275,7 @@ Link Validation → Ranking Algorithm → Formatted Output
 **User:**  
 "Find the cheapest RTX 4070 with at least 12GB VRAM, new condition, shipping to 45701"
 
-**DealFinder Output:**
+**AetherCore.MarketSweep Output:**
 ```
 🏆 TOP 5 RTX 4070 DEALS (12GB+ VRAM, New Condition)
 
@@ -314,7 +314,7 @@ Link Validation → Ranking Algorithm → Formatted Output
 
 - **Project GPT Documentation**: `/docs/skill-integration.md`
 - **Universal Skill Framework**: `/docs/universal-framework-spec.md`
-- **Support**: Contact system administrator or check `/logs/deal-finder.log`
+- **Support**: Contact system administrator or check `/logs/marketsweep.log`
 
 ---
 

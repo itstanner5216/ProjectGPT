@@ -1,7 +1,7 @@
-# 🧩 Optimization Profile — Project GPT Integration Readme
+# 🧩 AetherCore.OptiGraph — Project GPT Integration Readme
 
 ## Overview
-**Optimization Profile** is a modular Project GPT extension that dynamically adjusts reasoning behavior, verbosity, and resource allocation based on task context.  
+**AetherCore.OptiGraph** is a modular Project GPT extension that dynamically adjusts reasoning behavior, verbosity, and resource allocation based on task context.  
 It acts as a “meta-tuner,” optimizing model output fidelity, token usage, and execution efficiency without altering core logic or tone inheritance.
 
 Once uploaded into Project GPT, the skill auto-registers via the **Universal Skill Integration Framework (USIF)** and runs in **subordinate mode** under the Full-Output Intelligence Protocol (FOIP).
@@ -13,7 +13,7 @@ Once uploaded into Project GPT, the skill auto-registers via the **Universal Ski
 - **Dynamic Reasoning Depth** – Expands or compresses internal reasoning paths as workload intensity changes.  
 - **Execution Profiler** – Benchmarks task response time and token footprint to suggest future optimization targets.  
 - **Memory Tuning** – Manages in-session cache for large analysis chains and deactivates idle modules.  
-- **Compatibility Inheritance** – Works seamlessly alongside Deep Research Extension, Prompt Factory, and Deal Finder modules.
+- **Compatibility Inheritance** – Works seamlessly alongside AetherCore.DeepForge, AetherCore.PromptFoundry, and AetherCore.MarketSweep modules.
 
 ---
 
@@ -67,11 +67,11 @@ launch AetherCore.OptiGraph
 ---
 
 ## Behavior and Scope
-When invoked, Optimization Profile observes the current skill registry and adjusts system-level performance parameters.  
+When invoked, AetherCore.OptiGraph observes the current skill registry and adjusts system-level performance parameters.  
 It does **not** override content logic — it refines *how* each skill executes.
 
 Example:  
-If Prompt Factory is generating a 6 k-token specification, Optimization Profile may throttle intermediate verbosity and compress non-critical commentary before final output assembly.
+If AetherCore.PromptFoundry is generating a 6 k-token specification, AetherCore.OptiGraph may throttle intermediate verbosity and compress non-critical commentary before final output assembly.
 
 ---
 
@@ -81,7 +81,7 @@ If Prompt Factory is generating a 6 k-token specification, Optimization Profile 
 ✅ Auto-registration tested  
 ✅ Subordinate execution confirmed  
 ✅ FOIP inheritance functional  
-✅ Compatible with Deep Research / Prompt Factory / Deal Finder  
+✅ Compatible with AetherCore.DeepForge / AetherCore.PromptFoundry / AetherCore.MarketSweep  
 
 ---
 
@@ -89,7 +89,7 @@ If Prompt Factory is generating a 6 k-token specification, Optimization Profile 
 - Initial release for Project GPT  
 - Added dynamic reasoning-depth tuning  
 - Added performance benchmark telemetry  
-- Added compatibility hooks for Prompt Factory v1.0+  
+- Added compatibility hooks for AetherCore.PromptFoundry v1.0+  
 
 ---
 
