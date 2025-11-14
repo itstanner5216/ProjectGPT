@@ -122,7 +122,7 @@ entry_point: optigraph-entry.js
         return True
     ```
 
-End of optimization_profile.md
+End of optigraph.md
 
 
 ---

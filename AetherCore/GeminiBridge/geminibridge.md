@@ -313,7 +313,7 @@ Defines how Gemini’s results are:
 ```
 AetherCore/GeminiBridge/
 ├── geminibridge-config.json # Skill configuration
-├── gemini-hybrid.md         # Skill definition & rules
+├── geminibridge.md          # Skill definition & rules
 ├── gemini_client.js         # API client implementation
 └── README.md                # This file
 ```
@@ -324,13 +324,13 @@ AetherCore/GeminiBridge/
 
 ### Step 1: Structure
 
-Place the `gemini-hybrid/` folder inside ProjectGPT’s `skills/` directory:
+Place the `GeminiBridge/` folder inside ProjectGPT’s `AetherCore/` directory:
 
 ```
-skills/
-└── gemini-hybrid/
-    ├── config.json
-    ├── gemini-hybrid.md
+AetherCore/
+└── GeminiBridge/
+    ├── geminibridge-config.json
+    ├── geminibridge.md
     ├── gemini_client.js
     └── README.md
 ```
