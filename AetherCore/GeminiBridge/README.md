@@ -304,7 +304,7 @@ Defines how Gemini’s results are:
 
 ```
 AetherCore/GeminiBridge/
-├── geminibridge-config.json # Skill configuration
+├── geminibridge-geminibridge-config.json # Skill configuration
 ├── gemini-hybrid.md         # Skill definition & rules
 ├── gemini_client.js         # API client implementation
 └── README.md                # This file
@@ -316,12 +316,12 @@ AetherCore/GeminiBridge/
 
 ### Step 1: Structure
 
-Place the `gemini-hybrid/` folder inside ProjectGPT’s `skills/` directory:
+AetherCore.GeminiBridge is located in ProjectGPT’s `AetherCore/` directory:
 
 ```
-skills/
-└── gemini-hybrid/
-    ├── config.json
+AetherCore/
+└── GeminiBridge/
+    ├── geminibridge-config.json
     ├── gemini-hybrid.md
     ├── gemini_client.js
     └── README.md
@@ -331,10 +331,10 @@ skills/
 
 FOIP + USIF will:
 
-1. Detect `config.json`
+1. Detect `geminibridge-geminibridge-config.json`
 1. Register the skill
 1. Assign default priority
-1. Enable Gemini-Hybrid for delegation pathways
+1. Enable AetherCore.GeminiBridge for delegation pathways
 
 ### Step 3: Verification
 
@@ -430,13 +430,13 @@ User: "Gemini, rewrite this function."
 **Solution:** Check prompt formatting and API quota limits
 
 **Issue:** “Skill not registered”  
-**Solution:** Verify file structure matches expected layout in `/skills/gemini-hybrid/`
+**Solution:** Verify file structure matches expected layout in `AetherCore/GeminiBridge/`
 
 -----
 
 ## Configuration Reference
 
-See `config.json` for full configuration options including:
+See `geminibridge-config.json` for full configuration options including:
 
 - Model selection heuristics
 - Escalation triggers
