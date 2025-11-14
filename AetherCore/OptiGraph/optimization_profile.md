@@ -73,7 +73,7 @@ entry_point: optigraph-entry.js
 
         # silently notify Automation-Graph that preflight optimization is complete
         try:
-            bus.direct("automation-graph", {
+            bus.direct("AetherCore.EventMesh", {
                 "event_type": "stage_complete",
                 "payload": {"stage": "preflight"}
             })
@@ -116,7 +116,7 @@ entry_point: optigraph-entry.js
     def on_session_exit():
         session_stats = optimization_cache.dump_all()
         if persistence.available():
-            persistence.save("optimization-profile-session.json", session_stats)
+            persistence.save("AetherCore.OptiGraph-session.json", session_stats)
         registry.clear_temporary_flags()
         optimization_cache.clear_all()
         return True

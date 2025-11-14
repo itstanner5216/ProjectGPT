@@ -18,14 +18,14 @@ Once uploaded into Project GPT, the skill auto-registers via the **Universal Ski
 ---
 
 ## Integration Instructions
-1. Upload `optimization-profile.zip` directly into your Project GPT workspace or chat.  
+1. Upload `AetherCore.OptiGraph.zip` directly into your Project GPT workspace or chat.  
 2. The USIF will:
    - Detect the `.zip` file,  
    - Read `config.json`,
    - Register `optimization_profile.md` as the primary controller.
 3. Confirmation message:  
    ```
-   [✓] Registered skill: optimization-profile
+   [✓] Registered skill: AetherCore.OptiGraph
    Execution scope: Subordinate (tone inheritance enabled)
    ```
 4. The skill remains active until session end or manual unload.
@@ -38,7 +38,7 @@ Use any natural activation phrase:
 activate optimization profile
 enable optimization tuning
 run performance optimizer
-launch optimization-profile
+launch AetherCore.OptiGraph
 ```
 
 ---
@@ -54,7 +54,7 @@ launch optimization-profile
 
 | Parameter | Value |
 |------------|--------|
-| **Skill Name** | optimization-profile |
+| **Skill Name** | AetherCore.OptiGraph |
 | **Version** | 1.0 |
 | **Execution Scope** | Subordinate |
 | **Tone Inheritance** | True |

@@ -226,11 +226,11 @@ def orchestrate_multi_skill_workflow(skill_names, user_query):
 
 **Orchestrator Analysis**:
 ```python
-detected_skills = ["deep-research", "prompt-factory"]
+detected_skills = ["deep-research", "AetherCore.PromptFoundry"]
 dependencies = {
-    "prompt-factory": ["deep-research"]  # Prompt Factory depends on research results
+    "AetherCore.PromptFoundry": ["deep-research"]  # Prompt Factory depends on research results
 }
-execution_order = ["deep-research", "prompt-factory"]
+execution_order = ["deep-research", "AetherCore.PromptFoundry"]
 ```
 
 **Execution Flow**:
@@ -265,7 +265,7 @@ def analyze_skill_dependencies(skill_names):
     Build dependency graph from skill metadata and query context
     """
     dependency_rules = {
-        "prompt-factory": {
+        "AetherCore.PromptFoundry": {
             "can_use_output_from": ["deep-research", "deal-finder"],
             "pattern_indicators": ["based on", "using", "from"]
         },
@@ -381,8 +381,8 @@ def initialize_automation_graph():
     """
     Instantiate and configure the Automation Graph
     """
-    # Load automation-graph skill
-    graph_skill = registry.get("automation-graph")
+    # Load AetherCore.EventMesh skill
+    graph_skill = registry.get("AetherCore.EventMesh")
     
     # Initialize with full skill registry
     graph_skill.on_registry_init(session_state.registry)
@@ -407,8 +407,8 @@ def activate_optimization_profile():
     """
     Initialize and configure Optimization Profile
     """
-    # Load optimization-profile skill
-    opt_profile = registry.get("optimization-profile")
+    # Load AetherCore.OptiGraph skill
+    opt_profile = registry.get("AetherCore.OptiGraph")
     
     # Run registry-wide optimization
     opt_profile.optimize_registry()

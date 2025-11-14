@@ -13,7 +13,7 @@
     "AetherCore.Orchestrator",
     "AetherCore.EventMesh",
     "AetherCore.OptiGraph",
-    "skill-messaging-bus"
+    "AetherCore.EventMesh"
   ],
   "integration": {
     "inherits_from": "Universal Skill Integration Framework",

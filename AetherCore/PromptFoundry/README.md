@@ -126,7 +126,7 @@ python scripts/optimizer.py \
 ## File Structure
 
 ```
-prompt-factory/
+AetherCore.PromptFoundry/
 ├── SKILL.md              # Main skill (use with Claude Code)
 ├── HOW_TO_USE.md         # Comprehensive guide
 ├── README.md             # This file
@@ -204,7 +204,7 @@ Mode? advanced
 
 ```bash
 # Clone or download this folder
-cd prompt-factory
+cd AetherCore.PromptFoundry
 
 # Install dependencies (if needed)
 pip install -r requirements.txt
@@ -378,7 +378,7 @@ python scripts/validator.py \
 - **Examples:** [examples/](examples/)
 
 ### Getting Help
-- **Issues:** [GitHub Issues](https://github.com/your-repo/prompt-factory/issues)
+- **Issues:** [GitHub Issues](https://github.com/your-repo/AetherCore.PromptFoundry/issues)
 - **Discussions:** [Community Forum](https://forum.example.com)
 - **Updates:** [Changelog](CHANGELOG.md)
 

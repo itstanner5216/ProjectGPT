@@ -84,7 +84,7 @@ All v1.0 data coordination features remain intact:
 
 ### Fresh Installation
 
-1. Place the `knowledge-orchestrator/` directory in your `skills/` folder
+1. Place the `AetherCore.Orchestrator/` directory in your `skills/` folder
 2. Ensure all three files are present:
    - `knowledge_orchestrator.md`
    - `config.json`
@@ -100,7 +100,7 @@ All v1.0 data coordination features remain intact:
 **IMPORTANT**: This is a breaking change to execution scope.
 
 1. **Backup your current v1.0 installation**
-2. Replace v1.0 files with v2.0 files in `skills/knowledge-orchestrator/`
+2. Replace v1.0 files with v2.0 files in `skills/AetherCore.Orchestrator/`
 3. Update any custom configuration in `config.json`
 4. Restart ProjectGPT
 5. Verify all skills register correctly
@@ -260,7 +260,7 @@ orchestrator_initialized → infrastructure_ready → system_ready
 **User Query**: "Research the top programming languages and build a prompt to teach them"
 
 **Orchestrator Action**:
-1. Detect skills: `deep-research`, `prompt-factory`
+1. Detect skills: `deep-research`, `AetherCore.PromptFoundry`
 2. Analyze dependency: Prompt Factory can use research output
 3. Execute Deep Research first
 4. Feed research results into Prompt Factory context
@@ -287,7 +287,7 @@ Based on research from [sources]...
 **User Query**: "Find the best gaming laptops, research their specs, then create a comparison prompt"
 
 **Orchestrator Action**:
-1. Detect skills: `deal-finder`, `deep-research`, `prompt-factory`
+1. Detect skills: `deal-finder`, `deep-research`, `AetherCore.PromptFoundry`
 2. Build dependency graph:
    - Deal Finder (independent) → products identified
    - Deep Research (uses Deal Finder output) → specs validated
@@ -429,7 +429,7 @@ Check orchestration activity:
 ## File Structure
 
 ```
-knowledge-orchestrator/
+AetherCore.Orchestrator/
 ├── knowledge_orchestrator.md  # Main v2.0 controller logic
 ├── config.json                # Updated configuration (v2.0)
 ├── README.md                  # This file

@@ -26,7 +26,7 @@ The Deep Research Extension is a sophisticated analytical module designed to pro
 ## Integration Instructions
 
 ### Installation
-1. Place the `deep-research-extension3.zip` file in your Project-GPT project files directory
+1. Place the `AetherCore.DeepForge3.zip` file in your Project-GPT project files directory
 2. The Universal Skill Integration Framework will automatically detect and register the skill
 3. Verify registration by checking for the activation confirmation message
 

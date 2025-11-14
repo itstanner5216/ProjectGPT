@@ -26,7 +26,7 @@ The automation graph uses a directed graph model:
 
 ```
 ┌─────────────────────┐
-│ optimization-profile│
+│ AetherCore.OptiGraph│
 └──────────┬──────────┘
            │ (triggers)
            ▼
@@ -66,7 +66,7 @@ The Automation Graph integrates with Project GPT's lifecycle events:
 
 ### Automatic Installation
 
-1. Download `automation-graph.zip`
+1. Download `AetherCore.EventMesh.zip`
 2. Place in your project's `project_files` directory
 3. The skill auto-registers on next session startup
 
@@ -76,7 +76,7 @@ After placement, verify the skill is loaded:
 
 ```bash
 # Check project_files directory
-ls project_files/automation-graph.zip
+ls project_files/AetherCore.EventMesh.zip
 
 # Skill should appear in registry automatically
 # No activation command needed
@@ -87,7 +87,7 @@ ls project_files/automation-graph.zip
 ### Example 1: Research Pipeline
 
 When you have these skills loaded:
-- `optimization-profile`
+- `AetherCore.OptiGraph`
 - `deep-research`
 - `deal-finder`
 
@@ -96,7 +96,7 @@ The Automation Graph automatically creates this flow:
 ```
 User Request
     ↓
-optimization-profile (analyzes requirements)
+AetherCore.OptiGraph (analyzes requirements)
     ↓ (event: research_needed)
 deep-research (conducts research)
     ↓ (event: results_ready)
@@ -250,8 +250,8 @@ print(_state.event_log[-100:])
 ## Dependencies
 
 This skill requires:
-- `optimization-profile` (for configuration inheritance)
-- `skill-messaging-bus` (for event routing)
+- `AetherCore.OptiGraph` (for configuration inheritance)
+- `AetherCore.EventMesh` (for event routing)
 
 Both dependencies are standard Project GPT components.
 
@@ -263,7 +263,7 @@ Both dependencies are standard Project GPT components.
 ## Support
 
 For issues or questions:
-1. Verify `automation-graph.zip` is in `project_files`
+1. Verify `AetherCore.EventMesh.zip` is in `project_files`
 2. Check that dependencies are loaded
 3. Inspect internal state for graph structure
 4. Review event log for routing patterns

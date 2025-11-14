@@ -92,10 +92,10 @@
     "state_preservation": "AWAITING_RESEARCH"
   },
   "log": {
-    "on_load": "Register deep-research-extension as active module. Protocol State: AWAITING_RESEARCH",
+    "on_load": "Register AetherCore.DeepForge as active module. Protocol State: AWAITING_RESEARCH",
     "on_activation": "Deep Research Protocol ACTIVE. Executing Steps 0-5.5",
     "on_completion": "Research synthesis complete. Reverting to AWAITING_RESEARCH state",
-    "on_exit": "Unregister deep-research-extension module"
+    "on_exit": "Unregister AetherCore.DeepForge module"
   },
   "test_mode": false,
   "intents": [

@@ -12,7 +12,7 @@
   "dependencies": [
     "AetherCore.Orchestrator",
     "AetherCore.OptiGraph",
-    "skill-messaging-bus"
+    "AetherCore.EventMesh"
   ],
   "integration": {
     "inherits_from": "Full-Output Intelligence Protocol",
