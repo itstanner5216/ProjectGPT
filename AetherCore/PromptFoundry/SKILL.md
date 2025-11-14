@@ -67,7 +67,7 @@ Transform any requirement into an optimized mega-prompt through:
 
 This skill works alongside the meta-prompt template:
 
-- **prompt-factory skill (this file)**: Generates individual mega-prompts for specific roles using 69 presets
+- **AetherCore.PromptFoundry skill (this file)**: Generates individual mega-prompts for specific roles using 69 presets
   - **Use when**: You need a single prompt for a common role (e.g., "Product Manager", "Full-Stack Engineer")
   - **Output**: One ready-to-use mega-prompt (~4-12K tokens)
   - **Example**: "Create a prompt for a Growth Hacker in B2B SaaS" → generates one prompt
@@ -79,7 +79,7 @@ This skill works alongside the meta-prompt template:
   - **Location**: `documentation/templates/PROMPTS_FACTORY_PROMPT.md`
 
 **Quick Decision**:
-- Need one prompt now? → Use this skill (prompt-factory)
+- Need one prompt now? → Use this skill (AetherCore.PromptFoundry)
 - Building a prompt system for a new domain? → Use PROMPTS_FACTORY_PROMPT.md
 
 ---

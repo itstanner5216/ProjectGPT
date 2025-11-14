@@ -103,15 +103,15 @@ system: |
       enabled: true
       hooks:
         on_registry_init:
-          - call optimization-profile.optimize_registry()
+          - call AetherCore.OptiGraph.optimize_registry()
         on_skill_load:
-          - call optimization-profile.calibrate(skill_name)
+          - call AetherCore.OptiGraph.calibrate(skill_name)
         on_skill_exit:
-          - call optimization-profile.flush_cache(skill_name)
+          - call AetherCore.OptiGraph.flush_cache(skill_name)
         on_skill_invoke:
-          - call optimization-profile.monitor_performance(skill_name)
+          - call AetherCore.OptiGraph.monitor_performance(skill_name)
         on_message:
-          - call automation-graph.on_message(message, bus)
+          - call AetherCore.EventMesh.on_message(message, bus)
       feedback_silent: true
       fallback_behavior: |
         If hook target missing, skip silently and continue execution.
@@ -124,25 +124,25 @@ system: |
       trigger_scope: "on_load"
       priority_enforcement: true
       run_order:
-        - knowledge-orchestrator
-        - automation-graph
-        - optimization-profile
-        - skill-messaging-bus
-        - deep-research-extension
-        - dealfinder-extension
-        - prompt-factory
+        - AetherCore.Orchestrator
+        - AetherCore.EventMesh
+        - AetherCore.OptiGraph
+        - AetherCore.EventMesh
+        - AetherCore.DeepForge
+        - AetherCore.MarketSweep
+        - AetherCore.PromptFoundry
       initialization_sequence:
         phase_1:
           name: "Root Controller Bootstrap"
-          executes: ["knowledge-orchestrator"]
+          executes: ["AetherCore.Orchestrator"]
           description: "Load skill taxonomy, classify all skills, establish governance"
         phase_2:
           name: "Infrastructure Creation"
-          executes: ["automation-graph", "optimization-profile", "skill-messaging-bus"]
+          executes: ["AetherCore.EventMesh", "AetherCore.OptiGraph", "AetherCore.EventMesh"]
           description: "Build routing tables, apply optimization parameters, enable messaging"
         phase_3:
           name: "Callable Skills Registration"
-          executes: ["deep-research-extension", "dealfinder-extension", "prompt-factory"]
+          executes: ["AetherCore.DeepForge", "AetherCore.MarketSweep", "AetherCore.PromptFoundry"]
           description: "Register functional capabilities under orchestrator control"
       confirmation_message: "🧠 Knowledge Orchestrator v2.0 — Root Controller Active. System governed and ready."
   Skill_Messaging_Bus:
@@ -156,23 +156,23 @@ system: |
       channels:
         - name: "optimization-events"
           subscribers:
-            - optimization-profile
-            - deep-research-extension
-            - dealfinder-extension
-            - prompt-factory
+            - AetherCore.OptiGraph
+            - AetherCore.DeepForge
+            - AetherCore.MarketSweep
+            - AetherCore.PromptFoundry
         - name: "telemetry"
           subscribers:
-            - optimization-profile
-            - prompt-factory
+            - AetherCore.OptiGraph
+            - AetherCore.PromptFoundry
         - name: "market-data"
           subscribers:
-            - dealfinder-extension
-            - optimization-profile
+            - AetherCore.MarketSweep
+            - AetherCore.OptiGraph
         - name: "research-updates"
           subscribers:
-            - deep-research-extension
-            - optimization-profile
-            - prompt-factory
+            - AetherCore.DeepForge
+            - AetherCore.OptiGraph
+            - AetherCore.PromptFoundry
       methods:
         emit: "bus.send(channel, payload)"
         listen: "bus.receive(channel)"

@@ -236,7 +236,7 @@ def broadcast_event(event_type, payload):
             targets.append(skill_name)
             bus.direct(skill_name, {
                 "event_type": event_type,
-                "source": "automation-graph",
+                "source": "AetherCore.EventMesh",
                 "payload": payload,
                 "timestamp": _get_timestamp()
             })
@@ -294,7 +294,7 @@ All operations are logged internally for debugging but never displayed during no
 When three skills are loaded:
 
 ```
-optimization-profile → deep-research → deal-finder
+AetherCore.OptiGraph → deep-research → deal-finder
 ```
 
 The graph automatically creates and routes events silently between them.

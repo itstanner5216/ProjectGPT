@@ -37,7 +37,7 @@ An intelligent deal-aggregation and comparison module that searches across multi
 ### For GPT Project Integration
 
 1. **Select Skills**: Choose the skills you want to integrate from the `skills/` directory.
-2. **Package Files**: Zip each selected skill folder (e.g., `automation-graph.zip`, `deal-finder.zip`).
+2. **Package Files**: Zip each selected skill folder (e.g., `AetherCore.EventMesh.zip`, `deal-finder.zip`).
 3. **Deploy to GPT**: Place the zip files into your GPT project's `project_files` directory.
 4. **Configure Instructions**: Include the appropriate project GPT instructions block to enable skill loading and automation.
 
