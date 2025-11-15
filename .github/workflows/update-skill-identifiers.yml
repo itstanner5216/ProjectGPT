@@ -67,7 +67,7 @@ jobs:
         id: migrate
         run: |
           echo "Running migration script..."
-          node scripts/rename-skills.js
+          node .github/scripts/rename-skills.js
           echo "Migration script completed"
 
       - name: Check for changes
@@ -166,7 +166,7 @@ jobs:
             
             ### Migration Details
             
-            - **Script**: `scripts/rename-skills.js`
+            - **Script**: `.github/scripts/rename-skills.js`
             - **Idempotent**: Safe to run multiple times
             - **Scope**: Repository-wide (excluding `.git` and `node_modules`)
             
