@@ -1,4 +1,4 @@
-# Deep Research Extension v5.9
+# Aethercore.DeepForge v5.9
 
 ## Overview
 
