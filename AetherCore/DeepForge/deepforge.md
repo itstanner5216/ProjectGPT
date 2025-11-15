@@ -7,7 +7,7 @@ entry_point: deepforge-entry.js
 ---
 
 {
-  "Deep_Research_Ultimate_Protocol": {
+  "Aethercode.DeepForge v5.9": {
     "version": "5.9-Fidelity-Weighted",
     "Protocol_State": "AWAITING_RESEARCH",
     "Role": "Augmentative_Research_Analyst",
