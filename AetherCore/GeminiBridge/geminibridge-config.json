@@ -32,7 +32,7 @@
 },
 "runtime": {
 "language": "node",
-"entry_module": "gemini_client.js",
+"entry_module": "GeminiBridge-client.js",
 "permissions": {
 "network": true,
 "filesystem": false

@@ -314,7 +314,7 @@ Defines how Gemini’s results are:
 AetherCore/GeminiBridge/
 ├── geminibridge-config.json # Skill configuration
 ├── geminibridge.md          # Skill definition & rules
-├── gemini_client.js         # API client implementation
+├── GeminiBridge-client.js   # API client implementation
 └── README.md                # This file
 ```
 
@@ -331,7 +331,7 @@ AetherCore/
 └── GeminiBridge/
     ├── geminibridge-config.json
     ├── geminibridge.md
-    ├── gemini_client.js
+    ├── GeminiBridge-client.js
     └── README.md
 ```
 
