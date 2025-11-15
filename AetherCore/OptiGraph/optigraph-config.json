@@ -8,7 +8,7 @@
   "scope": "Subordinate",
   "callable": false,
   "auto_register": true,
-  "entry_point": "optigraph-entry.js",
+  "entry_point": "optigraph.md",
   "dependencies": [],
   "integration": {
     "register_triggers": false,

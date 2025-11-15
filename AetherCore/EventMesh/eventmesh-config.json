@@ -8,7 +8,7 @@
   "execution_scope": "Subordinate",
   "callable": false,
   "auto_register": true,
-  "entry_point": "eventmesh-entry.js",
+  "entry_point": "eventmesh.md",
   "dependencies": [
     "AetherCore.Orchestrator",
     "AetherCore.OptiGraph",
