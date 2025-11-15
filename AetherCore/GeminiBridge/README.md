@@ -306,7 +306,7 @@ Defines how Gemini’s results are:
 AetherCore/GeminiBridge/
 ├── geminibridge-geminibridge-config.json # Skill configuration
 ├── gemini-hybrid.md         # Skill definition & rules
-├── gemini_client.js         # API client implementation
+├── GeminiBridge-client.js   # API client implementation
 └── README.md                # This file
 ```
 
@@ -323,7 +323,7 @@ AetherCore/
 └── GeminiBridge/
     ├── geminibridge-config.json
     ├── gemini-hybrid.md
-    ├── gemini_client.js
+    ├── GeminiBridge-client.js
     └── README.md
 ```
 
