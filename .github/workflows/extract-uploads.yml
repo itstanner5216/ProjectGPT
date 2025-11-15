@@ -1,0 +1,463 @@
+name: Smart Zip Extraction & Merge
+
+# =============================================================================
+# WORKFLOW CONFIGURATION
+# =============================================================================
+# This workflow automates the extraction and merging of zip files uploaded to
+# the uploads/ directory, enabling seamless iOS → GitHub file transfers.
+#
+# Trigger Conditions:
+# - Automatic: Push to main branch with zip files in uploads/
+# - Manual: workflow_dispatch for testing and recovery
+#
+# Key Features:
+# - Smart file conflict resolution (replaces existing, adds new)
+# - Preserves folder hierarchy with unlimited depth
+# - Atomic commits with descriptive messages
+# - Automatic cleanup of source zip files
+# - Comprehensive logging and security controls
+# =============================================================================
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'uploads/**/*.zip'
+  workflow_dispatch:
+    inputs:
+      keep_zip:
+        description: 'Keep source zip after extraction'
+        required: false
+        default: 'false'
+        type: boolean
+      dry_run:
+        description: 'Dry run mode (no commit/push)'
+        required: false
+        default: 'false'
+        type: boolean
+
+# Prevent concurrent runs to avoid race conditions
+concurrency:
+  group: zip-extraction
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+
+# =============================================================================
+# ENVIRONMENT CONFIGURATION
+# =============================================================================
+env:
+  UPLOAD_DIR: 'uploads'                 # Directory to monitor for zip files
+  EXTRACT_TARGET: '.'                   # Where to extract (repo root)
+  MAX_ZIP_SIZE_MB: 500                  # Maximum zip file size
+  ALLOW_OVERWRITES: 'true'              # Enable smart file replacement
+  KEEP_ZIP: 'false'                     # Whether to preserve source zip
+  BOT_NAME: 'github-actions[bot]'
+  BOT_EMAIL: '41898282+github-actions[bot]@users.noreply.github.com'
+
+jobs:
+  extract-and-merge:
+    name: Extract & Merge Zip Contents
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+
+    steps:
+      # =======================================================================
+      # STEP 1: Repository Checkout
+      # =======================================================================
+      - name: 🔍 Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      # =======================================================================
+      # STEP 2: Detect Zip Files
+      # =======================================================================
+      - name: 🔎 Detect Zip Files
+        id: detect
+        run: |
+          echo "🔍 Scanning for zip files in $UPLOAD_DIR..."
+
+          # Find all zip files in uploads directory
+          ZIP_FILES=$(find "$UPLOAD_DIR" -type f -name "*.zip" 2>/dev/null || echo "")
+
+          if [ -z "$ZIP_FILES" ]; then
+            echo "⚠️  No zip files found in $UPLOAD_DIR/"
+            echo "has_zips=false" >> $GITHUB_OUTPUT
+            exit 0
+          fi
+
+          # Count and list zip files
+          ZIP_COUNT=$(echo "$ZIP_FILES" | wc -l)
+          echo "✅ Found $ZIP_COUNT zip file(s):"
+          echo "$ZIP_FILES" | while read -r file; do
+            size=$(du -h "$file" | cut -f1)
+            echo "  📦 $file ($size)"
+          done
+
+          # Store results
+          echo "has_zips=true" >> $GITHUB_OUTPUT
+          echo "zip_count=$ZIP_COUNT" >> $GITHUB_OUTPUT
+
+          # Save file list
+          echo "$ZIP_FILES" > /tmp/zip_files.txt
+
+      # =======================================================================
+      # STEP 3: Validate Zip Files
+      # =======================================================================
+      - name: ✅ Validate Zip Integrity & Security
+        if: steps.detect.outputs.has_zips == 'true'
+        run: |
+          echo "🔒 Validating zip files..."
+
+          MAX_SIZE_BYTES=$((MAX_ZIP_SIZE_MB * 1024 * 1024))
+
+          while IFS= read -r zip_file; do
+            echo ""
+            echo "📋 Validating: $zip_file"
+
+            # Check file size
+            file_size=$(stat -f%z "$zip_file" 2>/dev/null || stat -c%s "$zip_file" 2>/dev/null)
+            file_size_mb=$((file_size / 1024 / 1024))
+
+            if [ "$file_size" -gt "$MAX_SIZE_BYTES" ]; then
+              echo "❌ ERROR: File exceeds maximum size of ${MAX_ZIP_SIZE_MB}MB (actual: ${file_size_mb}MB)"
+              exit 1
+            fi
+
+            echo "  ✓ Size: ${file_size_mb}MB (within limit)"
+
+            # Test zip integrity
+            if ! unzip -t "$zip_file" >/dev/null 2>&1; then
+              echo "❌ ERROR: Zip file is corrupted or invalid"
+              exit 1
+            fi
+
+            echo "  ✓ Integrity: Valid zip archive"
+
+            # Check for path traversal attempts
+            if unzip -l "$zip_file" | grep -q '\.\./'; then
+              echo "❌ ERROR: Path traversal detected (../ in paths)"
+              echo "🔒 Security: Blocking malicious archive"
+              exit 1
+            fi
+
+            echo "  ✓ Security: No path traversal detected"
+
+            # List contents preview
+            echo "  📁 Contents preview:"
+            unzip -l "$zip_file" | head -20 | tail -n +4 | head -n -2 | awk '{print "    " $4}'
+
+            total_files=$(unzip -l "$zip_file" | tail -2 | head -1 | awk '{print $2}')
+            echo "  📊 Total files: $total_files"
+
+          done < /tmp/zip_files.txt
+
+          echo ""
+          echo "✅ All zip files validated successfully"
+
+      # =======================================================================
+      # STEP 4: Extract and Merge
+      # =======================================================================
+      - name: 📦 Extract & Merge Contents
+        if: steps.detect.outputs.has_zips == 'true'
+        id: extract
+        run: |
+          echo "🚀 Starting extraction and merge process..."
+          echo ""
+
+          # Initialize counters
+          TOTAL_ADDED=0
+          TOTAL_MODIFIED=0
+          TOTAL_UNCHANGED=0
+          TOTAL_DIRS=0
+
+          # Create extraction log
+          EXTRACT_LOG="/tmp/extract_log.txt"
+          echo "Extraction Log - $(date -u +"%Y-%m-%d %H:%M:%S UTC")" > "$EXTRACT_LOG"
+          echo "================================================" >> "$EXTRACT_LOG"
+
+          # Process each zip file
+          while IFS= read -r zip_file; do
+            echo "📦 Processing: $zip_file"
+            echo "" >> "$EXTRACT_LOG"
+            echo "Processing: $zip_file" >> "$EXTRACT_LOG"
+            echo "----------------------------------------" >> "$EXTRACT_LOG"
+
+            # Create temporary extraction directory
+            TEMP_DIR=$(mktemp -d)
+            echo "  📂 Extracting to temporary location..."
+
+            # Extract zip
+            if ! unzip -q "$zip_file" -d "$TEMP_DIR"; then
+              echo "❌ ERROR: Failed to extract $zip_file"
+              rm -rf "$TEMP_DIR"
+              exit 1
+            fi
+
+            # Find all files in extraction (excluding __MACOSX and .DS_Store)
+            cd "$TEMP_DIR"
+            FILES=$(find . -type f ! -path "*/__MACOSX/*" ! -name ".DS_Store" ! -name "._*" | sed 's|^\./||')
+
+            if [ -z "$FILES" ]; then
+              echo "  ⚠️  No valid files found in archive"
+              cd - > /dev/null
+              rm -rf "$TEMP_DIR"
+              continue
+            fi
+
+            FILE_COUNT=$(echo "$FILES" | wc -l | tr -d ' ')
+            echo "  📊 Found $FILE_COUNT files to process"
+
+            # Process each file
+            echo "$FILES" | while IFS= read -r rel_path; do
+              src_file="$TEMP_DIR/$rel_path"
+              dest_file="$GITHUB_WORKSPACE/$rel_path"
+              dest_dir=$(dirname "$dest_file")
+
+              # Create destination directory if needed
+              if [ ! -d "$dest_dir" ]; then
+                mkdir -p "$dest_dir"
+                echo "  📁 Created directory: $dest_dir" >> "$EXTRACT_LOG"
+              fi
+
+              # Check if file exists (determines if add or modify)
+              if [ -f "$dest_file" ]; then
+                # File exists - check if content changed
+                if ! cmp -s "$src_file" "$dest_file"; then
+                  echo "  🔄 Modified: $rel_path" >> "$EXTRACT_LOG"
+                  cp -f "$src_file" "$dest_file"
+                else
+                  echo "  ⏭️  Unchanged: $rel_path" >> "$EXTRACT_LOG"
+                fi
+              else
+                # New file
+                echo "  ➕ Added: $rel_path" >> "$EXTRACT_LOG"
+                cp "$src_file" "$dest_file"
+              fi
+            done
+
+            # Return to workspace
+            cd "$GITHUB_WORKSPACE"
+
+            # Cleanup temp directory
+            rm -rf "$TEMP_DIR"
+
+            echo "  ✅ Extraction complete"
+            echo ""
+
+          done < /tmp/zip_files.txt
+
+          # Generate statistics
+          echo "" >> "$EXTRACT_LOG"
+          echo "Summary Statistics" >> "$EXTRACT_LOG"
+          echo "================================================" >> "$EXTRACT_LOG"
+
+          ADDED_COUNT=$(grep -c "➕ Added:" "$EXTRACT_LOG" || echo "0")
+          MODIFIED_COUNT=$(grep -c "🔄 Modified:" "$EXTRACT_LOG" || echo "0")
+          UNCHANGED_COUNT=$(grep -c "⏭️  Unchanged:" "$EXTRACT_LOG" || echo "0")
+          DIRS_COUNT=$(grep -c "📁 Created directory:" "$EXTRACT_LOG" || echo "0")
+
+          echo "Files Added: $ADDED_COUNT" >> "$EXTRACT_LOG"
+          echo "Files Modified: $MODIFIED_COUNT" >> "$EXTRACT_LOG"
+          echo "Files Unchanged: $UNCHANGED_COUNT" >> "$EXTRACT_LOG"
+          echo "Directories Created: $DIRS_COUNT" >> "$EXTRACT_LOG"
+
+          # Output statistics
+          echo "📊 Extraction Summary:"
+          echo "  ➕ Added: $ADDED_COUNT files"
+          echo "  🔄 Modified: $MODIFIED_COUNT files"
+          echo "  ⏭️  Unchanged: $UNCHANGED_COUNT files"
+          echo "  📁 Directories: $DIRS_COUNT"
+
+          # Store outputs for later steps
+          echo "added=$ADDED_COUNT" >> $GITHUB_OUTPUT
+          echo "modified=$MODIFIED_COUNT" >> $GITHUB_OUTPUT
+          echo "unchanged=$UNCHANGED_COUNT" >> $GITHUB_OUTPUT
+          echo "directories=$DIRS_COUNT" >> $GITHUB_OUTPUT
+
+          # Display log
+          echo ""
+          echo "📝 Full extraction log:"
+          cat "$EXTRACT_LOG"
+
+      # =======================================================================
+      # STEP 5: Stage Changes
+      # =======================================================================
+      - name: 📋 Stage Changes
+        if: steps.detect.outputs.has_zips == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          echo "📋 Staging changes for commit..."
+
+          # Configure git
+          git config --local user.email "$BOT_EMAIL"
+          git config --local user.name "$BOT_NAME"
+
+          # Stage all changes (including new files and modifications)
+          git add -A
+
+          # Show what will be committed
+          echo ""
+          echo "📊 Changes to be committed:"
+          git --no-pager diff --cached --stat
+
+          echo ""
+          echo "✅ All changes staged"
+
+      # =======================================================================
+      # STEP 6: Create Commit
+      # =======================================================================
+      - name: 💾 Create Commit
+        if: steps.detect.outputs.has_zips == 'true' && github.event.inputs.dry_run != 'true'
+        id: commit
+        run: |
+          # Get zip file names for commit message
+          ZIP_FILES=$(cat /tmp/zip_files.txt | xargs -n1 basename | tr '\n' ', ' | sed 's/,$//')
+          TIMESTAMP=$(date -u +"%Y-%m-%d %H:%M:%S UTC")
+
+          # Build commit message
+          COMMIT_MSG="chore: Extract and merge contents from zip archive(s)
+
+          Summary:
+          - Added: ${{ steps.extract.outputs.added }} files
+          - Modified: ${{ steps.extract.outputs.modified }} files
+          - Unchanged: ${{ steps.extract.outputs.unchanged }} files
+          - Directories created: ${{ steps.extract.outputs.directories }}
+
+          Source: $ZIP_FILES
+          Extracted at: $TIMESTAMP
+          Workflow: ${{ github.workflow }} #${{ github.run_number }}"
+
+          # Create commit
+          if git diff --cached --quiet; then
+            echo "⚠️  No changes to commit"
+            echo "committed=false" >> $GITHUB_OUTPUT
+          else
+            git commit -m "$COMMIT_MSG"
+            COMMIT_SHA=$(git rev-parse HEAD)
+            echo "✅ Created commit: $COMMIT_SHA"
+            echo "committed=true" >> $GITHUB_OUTPUT
+            echo "commit_sha=$COMMIT_SHA" >> $GITHUB_OUTPUT
+          fi
+
+      # =======================================================================
+      # STEP 7: Cleanup Source Zip Files
+      # =======================================================================
+      - name: 🧹 Cleanup Source Zip Files
+        if: steps.detect.outputs.has_zips == 'true' && steps.commit.outputs.committed == 'true' && (env.KEEP_ZIP == 'false' || github.event.inputs.keep_zip != 'true')
+        run: |
+          echo "🧹 Removing source zip files..."
+
+          while IFS= read -r zip_file; do
+            echo "  🗑️  Removing: $zip_file"
+            rm -f "$zip_file"
+          done < /tmp/zip_files.txt
+
+          # Stage zip deletions
+          git add -A "$UPLOAD_DIR"
+
+          # Amend commit to include zip removal
+          if ! git diff --cached --quiet; then
+            git commit --amend --no-edit
+            echo "✅ Zip files removed and commit amended"
+          else
+            echo "✅ Zip files already removed"
+          fi
+
+      # =======================================================================
+      # STEP 8: Push Changes
+      # =======================================================================
+      - name: 🚀 Push Changes
+        if: steps.detect.outputs.has_zips == 'true' && steps.commit.outputs.committed == 'true' && github.event.inputs.dry_run != 'true'
+        run: |
+          echo "🚀 Pushing changes to repository..."
+
+          # Retry logic for push (handle transient failures)
+          MAX_RETRIES=3
+          RETRY_COUNT=0
+
+          while [ $RETRY_COUNT -lt $MAX_RETRIES ]; do
+            if git push origin ${{ github.ref_name }}; then
+              echo "✅ Successfully pushed changes"
+              exit 0
+            else
+              RETRY_COUNT=$((RETRY_COUNT + 1))
+              if [ $RETRY_COUNT -lt $MAX_RETRIES ]; then
+                echo "⚠️  Push failed, retrying ($RETRY_COUNT/$MAX_RETRIES)..."
+                sleep 2
+              else
+                echo "❌ Push failed after $MAX_RETRIES attempts"
+                exit 1
+              fi
+            fi
+          done
+
+      # =======================================================================
+      # STEP 9: Generate Job Summary
+      # =======================================================================
+      - name: 📊 Generate Job Summary
+        if: always() && steps.detect.outputs.has_zips == 'true'
+        run: |
+          echo "# 📦 Zip Extraction Report" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+
+          if [ "${{ steps.commit.outputs.committed }}" == "true" ]; then
+            echo "## ✅ Status: Success" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "Successfully extracted and merged zip contents." >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            echo "## 📊 Summary" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "| Metric | Count |" >> $GITHUB_STEP_SUMMARY
+            echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+            echo "| ➕ Files Added | ${{ steps.extract.outputs.added }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| 🔄 Files Modified | ${{ steps.extract.outputs.modified }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| ⏭️ Files Unchanged | ${{ steps.extract.outputs.unchanged }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| 📁 Directories Created | ${{ steps.extract.outputs.directories }} |" >> $GITHUB_STEP_SUMMARY
+            echo "| 📦 Zip Files Processed | ${{ steps.detect.outputs.zip_count }} |" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+
+            if [ -n "${{ steps.commit.outputs.commit_sha }}" ]; then
+              echo "## 🔗 Commit Details" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "**Commit:** [\`${{ steps.commit.outputs.commit_sha }}\`](${{ github.server_url }}/${{ github.repository }}/commit/${{ steps.commit.outputs.commit_sha }})" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+            fi
+
+            # Add extraction log if available
+            if [ -f "/tmp/extract_log.txt" ]; then
+              echo "## 📝 Detailed Log" >> $GITHUB_STEP_SUMMARY
+              echo "" >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+              cat /tmp/extract_log.txt >> $GITHUB_STEP_SUMMARY
+              echo "\`\`\`" >> $GITHUB_STEP_SUMMARY
+            fi
+          else
+            echo "## ⚠️ Status: No Changes" >> $GITHUB_STEP_SUMMARY
+            echo "" >> $GITHUB_STEP_SUMMARY
+            echo "No changes were committed. Files may have been unchanged." >> $GITHUB_STEP_SUMMARY
+          fi
+
+          echo "" >> $GITHUB_STEP_SUMMARY
+          echo "---" >> $GITHUB_STEP_SUMMARY
+          echo "*Workflow: ${{ github.workflow }} • Run #${{ github.run_number }}*" >> $GITHUB_STEP_SUMMARY
+
+      # =======================================================================
+      # STEP 10: Handle Dry Run
+      # =======================================================================
+      - name: 🔍 Dry Run Summary
+        if: github.event.inputs.dry_run == 'true' && steps.detect.outputs.has_zips == 'true'
+        run: |
+          echo "🔍 DRY RUN MODE - No changes committed or pushed"
+          echo ""
+          echo "📊 Summary of what would have been done:"
+          echo "  ➕ Added: ${{ steps.extract.outputs.added }} files"
+          echo "  🔄 Modified: ${{ steps.extract.outputs.modified }} files"
+          echo "  ⏭️  Unchanged: ${{ steps.extract.outputs.unchanged }} files"
+          echo "  📁 Directories: ${{ steps.extract.outputs.directories }}"
+          echo ""
+          echo "✅ Dry run complete - review logs above"
