@@ -93,6 +93,97 @@ Skills operate in subordinate mode, inheriting the parent GPT's context and tone
 
 See [ios-automation/README.md](ios-automation/README.md) for setup instructions.
 
+## 📦 iOS Upload Workflow
+
+**Seamlessly upload files from your iOS device to the repository!**
+
+The Smart Zip Extraction & Merge workflow enables effortless file uploads from iPhone or iPad directly to your GitHub repository. Simply compress your files and upload - the automation handles the rest.
+
+### Quick Start
+
+1. **📁 Compress your folder** in iOS Files app
+   - Long press folder → Select "Compress"
+   - Creates a `.zip` file automatically
+
+2. **📤 Upload to GitHub**
+   - Open GitHub Mobile app or Safari
+   - Navigate to repository → `uploads/` folder
+   - Tap "Add file" → Upload your zip file
+
+3. **✅ Commit changes**
+   - Add commit message
+   - Tap "Commit changes"
+
+4. **⚡ Automatic extraction**
+   - Workflow triggers automatically (~1 minute)
+   - Files extracted and merged into repository
+   - Zip file cleaned up automatically
+
+### How It Works
+
+The workflow intelligently merges your uploaded content:
+
+- **New files** → Added to repository structure
+- **Existing files** → Replaced with your new versions
+- **Folder hierarchy** → Preserved exactly as in your zip
+- **Commit created** → Descriptive message with statistics
+- **Audit trail** → Complete log of all changes
+
+### Example
+
+```
+Before Upload:
+repository/
+├── src/
+│   └── app.js (v1.0)
+└── README.md
+
+Upload: project-update.zip containing:
+├── src/
+│   ├── app.js (v2.0)     ← Will REPLACE
+│   └── utils.js (NEW)    ← Will ADD
+└── docs/
+    └── guide.md (NEW)    ← Will ADD
+
+After Workflow:
+repository/
+├── src/
+│   ├── app.js (v2.0)     ✅ Replaced
+│   └── utils.js          ✅ Added
+├── docs/
+│   └── guide.md          ✅ Added
+└── README.md             ✅ Unchanged
+```
+
+### Features
+
+✅ **Smart Conflict Resolution** - Existing files are replaced, new files are added  
+✅ **Unlimited Nesting** - Supports deeply nested folder structures  
+✅ **Binary Files** - Works with images, PDFs, and all file types  
+✅ **Security Controls** - Validates zip integrity and prevents malicious content  
+✅ **Automatic Cleanup** - Removes source zip after successful extraction  
+✅ **Rich Logging** - Detailed reports in GitHub Actions tab  
+
+### Documentation
+
+- **📖 User Guide**: [.github/UPLOAD_EXAMPLE.md](.github/UPLOAD_EXAMPLE.md) - Examples and best practices
+- **⚙️ Technical Docs**: [.github/workflows/README.md](.github/workflows/README.md) - Architecture and configuration
+- **🔧 Workflow File**: [.github/workflows/extract-uploads.yml](.github/workflows/extract-uploads.yml) - Complete implementation
+
+### Troubleshooting
+
+**Workflow doesn't trigger?**
+- Ensure zip file is in `uploads/` directory
+- Check file has `.zip` extension
+- Verify you're pushing to `main` branch
+
+**Files not appearing?**
+- Check Actions tab for workflow status
+- Review job summary for extraction details
+- Verify zip structure matches expected format
+
+**Need help?** See the [upload examples guide](.github/UPLOAD_EXAMPLE.md) for detailed troubleshooting steps.
+
 ## Support
 
 For issues or questions:
